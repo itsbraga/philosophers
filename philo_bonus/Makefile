@@ -21,7 +21,7 @@ PINK		:=	\e[38;2;255;182;193m
 #	BASICS
 #******************************************************************************#
 
-NAME		=	philo
+NAME_BONUS	=	philo_bonus
 CC			=	cc
 CFLAGS		=	-Wall -Wextra -Werror #-g -g3
 MAKEFLAGS	+=	--no-print-directory
@@ -41,12 +41,12 @@ EXEC_FILES		=
 #	COMBINE FILES AND DIRECTORIES
 #******************************************************************************#
 
-SRC_DIR			=	srcs/
+SRC_DIR			=	bonus_srcs/
 SRCS			=	$(addprefix $(CONFIGS_DIR), $(CONFIGS_FILES)) \
 					$(addprefix $(EXEC_DIR), $(EXEC_FILES)) \
 					main.c
 
-OBJ_DIR			=	objs/
+OBJ_DIR			=	bonus_objs/
 OBJ_NAMES		=	$(SRCS:.c=.o)
 OBJ_DIRS		=	$(addprefix $(OBJ_DIR), $(CONFIGS_DIR), $(EXEC_DIR))
 OBJS			=	$(addprefix $(OBJ_DIR), $(OBJ_NAMES))
@@ -63,7 +63,7 @@ DEPS			=	$(addprefix $(OBJ_DIR), $(DEP_NAMES))
 #	RULES
 #******************************************************************************#
 
-all: $(NAME)
+all: $(NAME_BONUS)
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 				@mkdir -p $(dir $@)
@@ -71,17 +71,17 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 				@$(CC) $(DEPFLAGS) $(CFLAGS) -c $< -o $@
 -include $(DEPS)
 
-$(NAME): $(OBJS)
-			@printf "$(RESET)$(shell bash rainbow.sh "[PHILO Mandatory]"): "
-			@printf "$(RESET)$(BOLD)$(YELLOW)Compilation done!\n\n$(RESET)"
-			@$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
+$(NAME_BONUS): $(OBJS)
+				@printf "$(RESET)$(shell bash rainbow.sh "[PHILO Bonus]"): "
+				@printf "$(RESET)$(BOLD)$(YELLOW)Compilation done!\n\n$(RESET)"
+				@$(CC) $(CFLAGS) $(OBJS) -o $(NAME_BONUS)
 
 clean:
 		@$(RM) $(OBJ_DIR)
 		@printf "\n$(BOLD)$(GREEN)[objs]:\t $(RESET)Clean completed\n"
 
 fclean: clean
-			@$(RM) $(NAME)
+			@$(RM) $(NAME_BONUS)
 			@find . -name ".DS_Store" -delete
 			@printf "$(BOLD)$(BLUE)[execs]: $(RESET)Full clean completed!\n\n"
 			@printf "\n. ⋅ ˚̣- : ✧ : – ⭒ ⊹ ⭒ ⊹ ⭒ ₊° ˗ ˏ ˋ ♡ ˎˊ ˗ °₊ ⭒ ⊹ ⭒ ⊹ ⭒ – : ✧ : -˚̣⋅ .\n\n\n"
