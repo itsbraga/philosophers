@@ -6,11 +6,11 @@
 /*   By: annabrag <annabrag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 15:28:53 by annabrag          #+#    #+#             */
-/*   Updated: 2024/04/02 15:19:34 by annabrag         ###   ########.fr       */
+/*   Updated: 2024/04/03 22:47:17 by annabrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/philo.h"
+#include "philo.h"
 
 /*
 	1-	If there is only one philosopher --> only one fork on the table
