@@ -23,7 +23,7 @@ PINK		:=	\e[38;2;255;182;193m
 
 NAME		=	philo
 CC			=	cc
-CFLAGS		=	-Wall -Wextra -Werror #-g -g3
+CFLAGS		=	-Wall -Wextra -Werror -Iinclude/ #-g -g3
 MAKEFLAGS	+=	--no-print-directory
 RM			=	rm -rf
 
@@ -31,24 +31,28 @@ RM			=	rm -rf
 #	SOURCES
 #******************************************************************************#
 
-CONFIGS_DIR		=	configs/
-CONFIGS_FILES	=	
-
 EXEC_DIR		=	exec/
-EXEC_FILES		=	
+EXEC_FILES		=	check_args.c main.c
+
+THREAD_DIR		=	threads/
+THREAD_FILES	=	init.c
+
+UTILS_DIR		=	utils/
+UTILS_FILES		=	utils.c rainbow.c
 
 #******************************************************************************#
 #	COMBINE FILES AND DIRECTORIES
 #******************************************************************************#
 
 SRC_DIR			=	srcs/
-SRCS			=	$(addprefix $(CONFIGS_DIR), $(CONFIGS_FILES)) \
+SRCS			=	$(addprefix $(THREAD_DIR), $(THREAD_FILES)) \
 					$(addprefix $(EXEC_DIR), $(EXEC_FILES)) \
-					main.c
+					$(addprefix $(UTILS_DIR), $(UTILS_FILES))
 
 OBJ_DIR			=	objs/
 OBJ_NAMES		=	$(SRCS:.c=.o)
-OBJ_DIRS		=	$(addprefix $(OBJ_DIR), $(CONFIGS_DIR), $(EXEC_DIR))
+OBJ_DIRS		=	$(addprefix $(OBJ_DIR), $(THREAD_DIR), $(EXEC_DIR), \
+											$(UTILS_DIR))
 OBJS			=	$(addprefix $(OBJ_DIR), $(OBJ_NAMES))
 
 #******************************************************************************#
@@ -56,7 +60,8 @@ OBJS			=	$(addprefix $(OBJ_DIR), $(OBJ_NAMES))
 #******************************************************************************#
 
 DEP_NAMES		=	$(SRCS:.c=.d)
-DEP_DIRS		=	$(addprefix $(OBJ_DIR), $(CONFIGS_DIR), $(EXEC_DIR))
+DEP_DIRS		=	$(addprefix $(OBJ_DIR), $(THREAD_DIR), $(EXEC_DIR), \
+											$(UTILS_DIR))
 DEPS			=	$(addprefix $(OBJ_DIR), $(DEP_NAMES))
 
 #******************************************************************************#
@@ -67,13 +72,15 @@ all: $(NAME)
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 				@mkdir -p $(dir $@)
-				@printf "$(BOLD)$(ITAL)$(PURPLE)Compiling: $(RESET)$(ITAL)$<          \r"
 				@$(CC) $(DEPFLAGS) $(CFLAGS) -c $< -o $@
 -include $(DEPS)
 
 $(NAME): $(OBJS)
-			@printf "$(RESET)$(shell bash rainbow.sh "[PHILO Mandatory]"): "
-			@printf "$(RESET)$(BOLD)$(YELLOW)Compilation done!\n\n$(RESET)"
+			@printf "$(BOLD)\n================= PHILOSOPHERS =================\n\n"
+			@printf "$(ITAL)$(PURPLE)Generating: $(RESET)$(ITAL)$<          \r"
+			@printf "\n\n$(RESET)$(shell bash rainbow.sh "[Mandatory]"): "
+			@printf "$(RESET)$(BOLD)$(PINK)Compilation done!\n\n$(RESET)"
+			@printf "$(BOLD)================================================\n\n"
 			@$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 
 clean:
@@ -84,11 +91,9 @@ fclean: clean
 			@$(RM) $(NAME)
 			@find . -name ".DS_Store" -delete
 			@printf "$(BOLD)$(BLUE)[execs]: $(RESET)Full clean completed!\n\n"
-			@printf "\n. ⋅ ˚̣- : ✧ : – ⭒ ⊹ ⭒ ⊹ ⭒ ₊° ˗ ˏ ˋ ♡ ˎˊ ˗ °₊ ⭒ ⊹ ⭒ ⊹ ⭒ – : ✧ : -˚̣⋅ .\n\n\n"
 
 re:		fclean all
-			@printf "\n. ⋅ ˚̣- : ✧ : – ⭒ ⊹ ⭒ ⊹ ⭒ ₊° ˗ ˏ ˋ ♡ ˎˊ ˗ °₊ ⭒ ⊹ ⭒ ⊹ ⭒ – : ✧ : -˚̣⋅ .\n"
-			@printf "\n\n✨ $(BOLD)CLEANING and REBUILDING DONE! $(RESET)✨\n\n"
+			@printf "✨ $(BOLD)$(YELLOW)Cleaning and rebuilding done! $(RESET)✨\n\n"
 
 diff:
 		$(info Repository's status, and the volume of per-file changes:)
