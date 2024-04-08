@@ -6,7 +6,7 @@
 /*   By: art3mis <art3mis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 23:15:34 by art3mis           #+#    #+#             */
-/*   Updated: 2024/04/09 00:52:03 by art3mis          ###   ########.fr       */
+/*   Updated: 2024/04/09 01:04:06 by art3mis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,8 @@ static int	__errcontext(char *reason)
 {
 	while (*reason)
 	{
-		write(STDERR_FILENO, "\nError: ", 1);
-		write(STDERR_FILENO, reason, strlen(reason));
-		reason++;
+		write(STDERR_FILENO, "\nError: ", 8);
+		write(STDERR_FILENO, reason, ft_strlen(reason));
 		write(STDERR_FILENO, "\n", 1);
 	}
 	return (EXIT_FAILURE);

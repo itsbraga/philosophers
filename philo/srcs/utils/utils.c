@@ -6,11 +6,21 @@
 /*   By: art3mis <art3mis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 23:46:13 by art3mis           #+#    #+#             */
-/*   Updated: 2024/04/09 00:53:04 by art3mis          ###   ########.fr       */
+/*   Updated: 2024/04/09 01:01:22 by art3mis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+size_t	ft_strlen(const char *str)
+{
+	size_t	i;
+
+	i = 0;
+	while (str[i] != 0)
+		i++;
+	return (i);
+}
 
 int	ft_atoi(const char *str)
 {

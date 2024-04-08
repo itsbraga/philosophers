@@ -6,7 +6,7 @@
 /*   By: art3mis <art3mis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 16:37:14 by annabrag          #+#    #+#             */
-/*   Updated: 2024/04/09 00:51:21 by art3mis          ###   ########.fr       */
+/*   Updated: 2024/04/09 01:01:31 by art3mis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ typedef struct	s_routine
  * MANDATORY
 \******************************************************************************/
 
+size_t	ft_strlen(const char *str);
 int		ft_atoi(const char *str);
 bool    global_check_is_successfull(int argc, char **argv);
 

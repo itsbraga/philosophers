@@ -23,7 +23,7 @@ PINK		:=	\e[38;2;255;182;193m
 
 NAME		=	philo
 CC			=	cc
-CFLAGS		=	-Wall -Wextra -Werror -Iinclude/ #-g -g3
+CFLAGS		=	-Wall -Wextra -Werror -Iinclude/
 MAKEFLAGS	+=	--no-print-directory
 RM			=	rm -rf
 
