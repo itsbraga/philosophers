@@ -6,7 +6,7 @@
 /*   By: art3mis <art3mis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 23:15:34 by art3mis           #+#    #+#             */
-/*   Updated: 2024/04/09 01:04:06 by art3mis          ###   ########.fr       */
+/*   Updated: 2024/04/11 15:02:58 by art3mis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ static bool	__is_space(char *argv)
 	int	i;
 
 	i = 0;
-	if (!(argv[i] == 32 || (argv[i] >= 9 && argv[i] <= 13)))
-		return (false);
-	return (true);
+	if (argv[i] == 32 || (argv[i] >= 9 && argv[i] <= 13))
+		return (true);
+	return (false);
 }
 
 static bool	__is_only_number(char *argv)
@@ -27,7 +27,7 @@ static bool	__is_only_number(char *argv)
 	int	i;
 
 	i = 0;
-	if (__is_space(&argv[i]) && argv[i + 1])
+	if (__is_space(&argv[i]) && argv[i + 1] == true)
 		i++;
 	while (argv[i] != '\0')
 	{

@@ -6,7 +6,7 @@
 /*   By: art3mis <art3mis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 23:46:13 by art3mis           #+#    #+#             */
-/*   Updated: 2024/04/09 01:01:22 by art3mis          ###   ########.fr       */
+/*   Updated: 2024/04/11 16:10:40 by art3mis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,16 @@ int	ft_atoi(const char *str)
 	return (res * sign);
 }
 
-void	destroy_mutexes(char *str, t_routine *routine, pthread_mutex_t *forks)
+void	destroy_mutexes(char *str, t_prog *prog, t_rules *rules,
+pthread_mutex_t *forks)
 {
 	size_t	i;
 
 	i = 0;
 	if (str)
 		printf("%s\n", str);
-	pthread_mutex_destroy(&routine->dead_lock);
-	pthread_mutex_destroy(&routine->meal_lock);
-	while (i < routine->philos[0].number_of_philos)
+	pthread_mutex_destroy(&prog->dead_lock);
+	pthread_mutex_destroy(&prog->meal_lock);
+	while (i < prog->philos[0].number_of_philos)
 		pthread_mutex_destroy(&forks[i++]);
 }

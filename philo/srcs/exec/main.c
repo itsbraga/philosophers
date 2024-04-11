@@ -6,7 +6,7 @@
 /*   By: art3mis <art3mis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 15:28:53 by annabrag          #+#    #+#             */
-/*   Updated: 2024/04/09 00:52:35 by art3mis          ###   ########.fr       */
+/*   Updated: 2024/04/11 15:50:39 by art3mis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	__error_help(void)
 
 int	main(int argc, char **argv)
 {
-	// t_routine		routine;
+	// t_prog		prog;
 	// t_philo			philos[MAX_AMOUNT_OF_PHILOS];
 	// pthread_mutex_t	forks[MAX_AMOUNT_OF_PHILOS];
 

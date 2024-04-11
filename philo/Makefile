@@ -35,7 +35,7 @@ EXEC_DIR		=	exec/
 EXEC_FILES		=	check_args.c main.c
 
 THREAD_DIR		=	threads/
-THREAD_FILES	=	init.c
+THREAD_FILES	=	init.c death.c prog.c
 
 UTILS_DIR		=	utils/
 UTILS_FILES		=	utils.c rainbow.c
@@ -81,7 +81,7 @@ $(NAME): $(OBJS)
 			@printf "\n\n$(RESET)$(shell bash rainbow.sh "[Mandatory]"): "
 			@printf "$(RESET)$(BOLD)$(PINK)Compilation done!\n\n$(RESET)"
 			@printf "$(BOLD)================================================\n\n"
-			@$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
+			@$(CC) $(CFLAGS) $(OBJS) -pthread -o $(NAME)
 
 clean:
 		@$(RM) $(OBJ_DIR)

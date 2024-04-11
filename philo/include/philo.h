@@ -6,7 +6,7 @@
 /*   By: art3mis <art3mis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 16:37:14 by annabrag          #+#    #+#             */
-/*   Updated: 2024/04/09 01:01:31 by art3mis          ###   ########.fr       */
+/*   Updated: 2024/04/11 16:32:27 by art3mis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,32 +51,41 @@
  * STRUCTS
 \******************************************************************************/
 
+t_rules;
+
 typedef struct s_philo
 {
-	pthread_t		thread;
+	// pthread_t		thread;
 	int				id;
-	size_t			number_of_philos;
-	int				number_times_must_eat;
-	size_t			meals_eaten;
-	size_t			last_meal;
+	int				ate;
 	size_t			start_time;
+	size_t			last_meal;
+	size_t			meals_eaten;
+	pthread_mutex_t	*dead_lock;
+	pthread_mutex_t	*right_fork;
+	pthread_mutex_t	*left_fork;
+	pthread_mutex_t	*meal_lock;
+	t_rules			*rules;
+}				t_philo;
+
+typedef struct s_rules
+{
+	t_philo			*philo;
+	size_t			number_of_philos;
 	size_t			time_to_die;
 	size_t			time_to_eat;
 	size_t			time_to_sleep;
-	pthread_mutex_t	*left_fork;
-	pthread_mutex_t	*right_fork;
-	pthread_mutex_t	*dead_lock;
-	pthread_mutex_t	*meal_lock;
-	int				*dead;
-}				t_philo;
+	size_t			number_times_must_eat;
+	int				*died;
+}				t_rules;
 
-typedef struct	s_routine
+typedef struct	s_prog
 {
 	t_philo			*philos;
 	int				dead_flag;
 	pthread_mutex_t	dead_lock;
 	pthread_mutex_t	meal_lock;
-}				t_routine;
+}				t_prog;
 
 /******************************************************************************\
  * MANDATORY
@@ -85,5 +94,7 @@ typedef struct	s_routine
 size_t	ft_strlen(const char *str);
 int		ft_atoi(const char *str);
 bool    global_check_is_successfull(int argc, char **argv);
+
+bool    is_dead(t_philo *philo);
 
 #endif
