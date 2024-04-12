@@ -6,7 +6,7 @@
 /*   By: art3mis <art3mis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 23:15:34 by art3mis           #+#    #+#             */
-/*   Updated: 2024/04/11 15:02:58 by art3mis          ###   ########.fr       */
+/*   Updated: 2024/04/12 23:11:03 by art3mis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static int	__errcontext(char *reason)
 	 Check that the input contains only numbers, they should all be bigger
 	 than 0 except the number of meals each philo needs to eat.
 */
-bool    global_check_is_successfull(int argc, char **argv)
+bool    args_check_successfull(int argc, char **argv)
 {
 	int	i;
 	
@@ -62,7 +62,7 @@ bool    global_check_is_successfull(int argc, char **argv)
 	{
 		if (__is_only_number(argv[i]) == false)
 			__errcontext("Only integers are allowed");
-		if (ft_atoi(argv[1]) > MAX_AMOUNT_OF_PHILOS || ft_atoi(argv[1]) <= 0)
+		if (ft_atoi(argv[1]) > MAX_NBR_OF_PHILOS || ft_atoi(argv[1]) <= 0)
 			__errcontext("Invalid amount of philosophers");
 		if (ft_atoi(argv[2]) <= 0)
 			__errcontext("Invalid time to die");

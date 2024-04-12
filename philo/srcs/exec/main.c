@@ -6,7 +6,7 @@
 /*   By: art3mis <art3mis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 15:28:53 by annabrag          #+#    #+#             */
-/*   Updated: 2024/04/11 15:50:39 by art3mis          ###   ########.fr       */
+/*   Updated: 2024/04/12 23:15:00 by art3mis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,20 @@ static int	__error_help(void)
 
 int	main(int argc, char **argv)
 {
-	// t_prog		prog;
-	// t_philo			philos[MAX_AMOUNT_OF_PHILOS];
-	// pthread_mutex_t	forks[MAX_AMOUNT_OF_PHILOS];
+	t_prog			prog;
+	t_rules			rules;
+	t_philo			philos[MAX_NBR_OF_PHILOS];
+	pthread_mutex_t	forks[MAX_NBR_OF_PHILOS];
+	size_t			nbr_of_philos;
 
 	if (argc != 5 || argc != 6)
 		__error_help();
-	if (global_check_is_successfull(argc, argv) == false)
+	if (args_check_successfull(argc, argv) == false)
 		return (EXIT_FAILURE);
+	nbr_of_philos = ft_atoi(argv[1]);
+	init_prog(&prog, rules, philos);
+	init_forks(forks, nbr_of_philos);
+	init_philos(&prog, forks, argv);
+	// create threads + destroy mutexes;
 	return (EXIT_SUCCESS);
 }

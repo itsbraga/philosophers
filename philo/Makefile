@@ -35,10 +35,10 @@ EXEC_DIR		=	exec/
 EXEC_FILES		=	check_args.c main.c
 
 THREAD_DIR		=	threads/
-THREAD_FILES	=	init.c death.c prog.c
+THREAD_FILES	=	init.c routine.c
 
-UTILS_DIR		=	utils/
-UTILS_FILES		=	utils.c rainbow.c
+TOOLS_DIR		=	tools/
+TOOLS_FILES		=	utils.c time.c lib.c
 
 #******************************************************************************#
 #	COMBINE FILES AND DIRECTORIES
@@ -47,12 +47,12 @@ UTILS_FILES		=	utils.c rainbow.c
 SRC_DIR			=	srcs/
 SRCS			=	$(addprefix $(THREAD_DIR), $(THREAD_FILES)) \
 					$(addprefix $(EXEC_DIR), $(EXEC_FILES)) \
-					$(addprefix $(UTILS_DIR), $(UTILS_FILES))
+					$(addprefix $(TOOLS_DIR), $(TOOLS_FILES))
 
 OBJ_DIR			=	objs/
 OBJ_NAMES		=	$(SRCS:.c=.o)
 OBJ_DIRS		=	$(addprefix $(OBJ_DIR), $(THREAD_DIR), $(EXEC_DIR), \
-											$(UTILS_DIR))
+											$(TOOLS_DIR))
 OBJS			=	$(addprefix $(OBJ_DIR), $(OBJ_NAMES))
 
 #******************************************************************************#
@@ -61,7 +61,7 @@ OBJS			=	$(addprefix $(OBJ_DIR), $(OBJ_NAMES))
 
 DEP_NAMES		=	$(SRCS:.c=.d)
 DEP_DIRS		=	$(addprefix $(OBJ_DIR), $(THREAD_DIR), $(EXEC_DIR), \
-											$(UTILS_DIR))
+											$(TOOLS_DIR))
 DEPS			=	$(addprefix $(OBJ_DIR), $(DEP_NAMES))
 
 #******************************************************************************#

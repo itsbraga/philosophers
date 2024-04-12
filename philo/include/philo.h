@@ -6,7 +6,7 @@
 /*   By: art3mis <art3mis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 16:37:14 by annabrag          #+#    #+#             */
-/*   Updated: 2024/04/11 16:32:27 by art3mis          ###   ########.fr       */
+/*   Updated: 2024/04/13 00:35:32 by art3mis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,20 @@
 # include <stdbool.h>
 # include "defines.h"
 
-# define MAX_AMOUNT_OF_PHILOS 200
+# define MAX_NBR_OF_PHILOS 200
 
 /******************************************************************************\
  * STRUCTS
 \******************************************************************************/
 
-t_rules;
+typedef struct s_rules
+{
+	size_t			nbr_of_philos;
+	size_t			time_to_die;
+	size_t			time_to_eat;
+	size_t			time_to_sleep;
+	size_t			nbr_times_must_eat;
+}				t_rules;
 
 typedef struct s_philo
 {
@@ -61,30 +68,23 @@ typedef struct s_philo
 	size_t			start_time;
 	size_t			last_meal;
 	size_t			meals_eaten;
-	pthread_mutex_t	*dead_lock;
 	pthread_mutex_t	*right_fork;
 	pthread_mutex_t	*left_fork;
+	pthread_mutex_t	*write_changes_lock;
+	pthread_mutex_t	*dead_lock;
 	pthread_mutex_t	*meal_lock;
+	int				*died;
 	t_rules			*rules;
 }				t_philo;
 
-typedef struct s_rules
-{
-	t_philo			*philo;
-	size_t			number_of_philos;
-	size_t			time_to_die;
-	size_t			time_to_eat;
-	size_t			time_to_sleep;
-	size_t			number_times_must_eat;
-	int				*died;
-}				t_rules;
-
 typedef struct	s_prog
 {
-	t_philo			*philos;
-	int				dead_flag;
+	t_philo			*philo;
+	t_rules			rules;
+	pthread_mutex_t	write_changes_lock;
 	pthread_mutex_t	dead_lock;
 	pthread_mutex_t	meal_lock;
+	int				dead_flag;
 }				t_prog;
 
 /******************************************************************************\
@@ -93,7 +93,15 @@ typedef struct	s_prog
 
 size_t	ft_strlen(const char *str);
 int		ft_atoi(const char *str);
-bool    global_check_is_successfull(int argc, char **argv);
+bool    args_check_successfull(int argc, char **argv);
+
+size_t	get_current_time(void);
+void	my_usleep(t_philo *philo, size_t time);
+void	show_status(char *str, t_philo *philo);
+
+void	init_prog(t_prog *prog, t_rules rules, t_philo *philo);
+void	init_forks(pthread_mutex_t *forks, size_t nbr_of_philos);
+int		init_philos(t_prog *prog, pthread_mutex_t *forks, char **argv);
 
 bool    is_dead(t_philo *philo);
 
