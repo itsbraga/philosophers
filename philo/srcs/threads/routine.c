@@ -12,27 +12,27 @@
 
 #include "philo.h"
 
-static void	eat_func(t_prog *prog)
+static void	eat_func(t_philo *philo)
 {
-	pthread_mutex_lock(prog->philo->left_fork);
-	show_status("has taken his/her left fork", prog->philo);
-	if (prog->rules.nbr_of_philos == 1)
+	pthread_mutex_lock(philo->left_fork);
+	show_status("has taken his/her left fork", philo);
+	if (philo->data->nbr_of_philos == 1)
 	{
-		usleep(prog->rules.time_to_die);
-		pthread_mutex_unlock(prog->philo->right_fork);
+		usleep(philo->data->time_to_die);
+		pthread_mutex_unlock(philo->right_fork);
 		return ;
 	}
-	pthread_mutex_lock(prog->philo->right_fork);
-	show_status("has taken his/her right fork", prog->philo);
-	prog->philo->ate = 1;
-	show_status("is eating", prog->philo);
-	pthread_mutex_lock(prog->philo->meal_lock);
-	prog->philo->last_meal = get_current_time();
-	prog->philo->meals_eaten++;
-	pthread_mutex_unlock(prog->philo->meal_lock);
-	usleep(prog->rules.time_to_eat);
-	pthread_mutex_unlock(prog->philo->left_fork);
-	pthread_mutex_unlock(prog->philo->right_fork);
+	pthread_mutex_lock(philo->right_fork);
+	show_status("has taken his/her right fork", philo);
+	philo->eating = 1;
+	show_status("is eating", philo);
+	pthread_mutex_lock(&philo->data->meal_lock);
+	philo->last_meal = get_current_time();
+	philo->meals_eaten++;
+	pthread_mutex_unlock(&philo->data->meal_lock);
+	usleep(philo->data->time_to_eat);
+	pthread_mutex_unlock(philo->left_fork);
+	pthread_mutex_unlock(philo->right_fork);
 }
 
 static void	sleep_func(t_philo *philo)
@@ -49,33 +49,32 @@ static void	think_func(t_philo *philo)
 	show_status("is thinking", philo);
 }
 
-void	*thread_tasks(void *data)
+void	*thread_routine(void *philo_ptr)
 {
 	t_philo *philo;
-	t_prog	*prog;
 
-	philo = (t_philo *)data;
+	philo = (t_philo *)philo_ptr;
 	if (philo->id % 2 == 0)
 		my_usleep(philo, 1);
 	while (is_dead(philo) == false)
 	{
-		eat_func(prog);
+		eat_func(philo);
 		sleep_func(philo);
 		think_func(philo);
 	}
-	return (data);
+	return (NULL);
 }
 
-void	*start_thread_tasks(void *data)
-{
-	t_philo	*philos;
+// void	*start_thread_routine(void *philo_ptr)
+// {
+// 	t_philo	*philos;
 
-	philos = (t_philo *)data;
-	// while (1)
-	// {
-	// 	if (check_if_is_dead(philos) == true
-	// 		|| check_if_all_ate(philos) == true)
-	// 		break ;
-	// }
-	return (data);
-}
+// 	philos = (t_philo *)philo_ptr;
+// 	// while (1)
+// 	// {
+// 	// 	if (check_if_is_dead(philos) == true
+// 	// 		|| check_if_all_ate(philos) == true)
+// 	// 		break ;
+// 	// }
+// 	return (philo_ptr);
+// }

@@ -6,7 +6,7 @@
 /*   By: art3mis <art3mis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 16:37:14 by annabrag          #+#    #+#             */
-/*   Updated: 2024/04/13 00:35:32 by art3mis          ###   ########.fr       */
+/*   Updated: 2024/04/19 12:55:00 by art3mis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,41 +51,35 @@
  * STRUCTS
 \******************************************************************************/
 
-typedef struct s_rules
-{
-	size_t			nbr_of_philos;
-	size_t			time_to_die;
-	size_t			time_to_eat;
-	size_t			time_to_sleep;
-	size_t			nbr_times_must_eat;
-}				t_rules;
+struct s_data;
 
 typedef struct s_philo
 {
-	// pthread_t		thread;
+	struct s_data	*data;
+	pthread_t		thread1;
 	int				id;
-	int				ate;
-	size_t			start_time;
+	int				eating;
 	size_t			last_meal;
 	size_t			meals_eaten;
 	pthread_mutex_t	*right_fork;
 	pthread_mutex_t	*left_fork;
-	pthread_mutex_t	*write_changes_lock;
-	pthread_mutex_t	*dead_lock;
-	pthread_mutex_t	*meal_lock;
-	int				*died;
-	t_rules			*rules;
 }				t_philo;
 
-typedef struct	s_prog
+typedef struct s_data
 {
-	t_philo			*philo;
-	t_rules			rules;
+	t_philo			*philos;
+	size_t			nbr_of_philos;
+	size_t			start_time;
+	size_t			time_to_die;
+	size_t			time_to_eat;
+	size_t			time_to_sleep;
+	size_t			nbr_times_must_eat;
+	int				died;
+	pthread_mutex_t *forks;
 	pthread_mutex_t	write_changes_lock;
 	pthread_mutex_t	dead_lock;
 	pthread_mutex_t	meal_lock;
-	int				dead_flag;
-}				t_prog;
+}				t_data;
 
 /******************************************************************************\
  * MANDATORY
@@ -99,9 +93,8 @@ size_t	get_current_time(void);
 void	my_usleep(t_philo *philo, size_t time);
 void	show_status(char *str, t_philo *philo);
 
-void	init_prog(t_prog *prog, t_rules rules, t_philo *philo);
 void	init_forks(pthread_mutex_t *forks, size_t nbr_of_philos);
-int		init_philos(t_prog *prog, pthread_mutex_t *forks, char **argv);
+int		init_philos(t_data *ph_data, char **argv);
 
 bool    is_dead(t_philo *philo);
 
