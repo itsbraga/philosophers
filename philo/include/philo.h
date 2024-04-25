@@ -6,7 +6,7 @@
 /*   By: art3mis <art3mis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 16:37:14 by annabrag          #+#    #+#             */
-/*   Updated: 2024/04/19 12:55:00 by art3mis          ###   ########.fr       */
+/*   Updated: 2024/04/25 18:28:36 by art3mis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ struct s_data;
 typedef struct s_philo
 {
 	struct s_data	*data;
-	pthread_t		thread1;
 	int				id;
 	int				eating;
 	size_t			last_meal;
@@ -87,15 +86,15 @@ typedef struct s_data
 
 size_t	ft_strlen(const char *str);
 int		ft_atoi(const char *str);
-bool    args_check_successfull(int argc, char **argv);
+bool    args_check_is_successfull(int argc, char **argv);
 
 size_t	get_current_time(void);
 void	my_usleep(t_philo *philo, size_t time);
-void	show_status(char *str, t_philo *philo);
+void	status_msg(char *str, t_philo *philo);
 
-void	init_forks(pthread_mutex_t *forks, size_t nbr_of_philos);
-int		init_philos(t_data *ph_data, char **argv);
-
+int		init(t_data *ph_data, char **argv);
 bool    is_dead(t_philo *philo);
+
+void    destroy_mutexes(t_data *ph_data);
 
 #endif

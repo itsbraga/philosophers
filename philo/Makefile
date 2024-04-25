@@ -32,10 +32,10 @@ RM			=	rm -rf
 #******************************************************************************#
 
 EXEC_DIR		=	exec/
-EXEC_FILES		=	check_args.c main.c
+EXEC_FILES		=	check_args.c init.c main.c
 
 THREAD_DIR		=	threads/
-THREAD_FILES	=	init.c routine.c
+THREAD_FILES	=	actions.c monitoring.c create_destroy.c
 
 TOOLS_DIR		=	tools/
 TOOLS_FILES		=	utils.c time.c lib.c

@@ -1,24 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   monitoring.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: art3mis <art3mis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/08 23:46:13 by art3mis           #+#    #+#             */
-/*   Updated: 2024/04/25 17:38:55 by art3mis          ###   ########.fr       */
+/*   Created: 2024/04/25 17:34:10 by art3mis           #+#    #+#             */
+/*   Updated: 2024/04/25 18:19:36 by art3mis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	status_msg(char *str, t_philo *philo)
+void	*start_monitoring(void *philo_ptr)
 {
-	size_t	time;
+	t_philo	*philos;
 
-	pthread_mutex_lock(&philo->data->write_changes_lock);
-	time = get_current_time() - philo->data->start_time;
-	if (is_dead(philo) == false && time >= 0)
-		printf("%zu\t-\tPhilo %d: %s\n", time, philo->id, str);
-	pthread_mutex_unlock(&philo->data->write_changes_lock);
+	philos = (t_philo *)philo_ptr;
+	while (1)
+	{
+		if (check_if_one_died(philos) == true)
+			break ;
+	}
+	return (philo_ptr);
 }

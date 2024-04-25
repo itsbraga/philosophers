@@ -15,7 +15,7 @@
 static void	eat_func(t_philo *philo)
 {
 	pthread_mutex_lock(philo->left_fork);
-	show_status("has taken his/her left fork", philo);
+	status_msg("has taken a fork (left)", philo);
 	if (philo->data->nbr_of_philos == 1)
 	{
 		usleep(philo->data->time_to_die);
@@ -23,9 +23,9 @@ static void	eat_func(t_philo *philo)
 		return ;
 	}
 	pthread_mutex_lock(philo->right_fork);
-	show_status("has taken his/her right fork", philo);
+	status_msg("has taken a fork (right)", philo);
 	philo->eating = 1;
-	show_status("is eating", philo);
+	status_msg("is eating", philo);
 	pthread_mutex_lock(&philo->data->meal_lock);
 	philo->last_meal = get_current_time();
 	philo->meals_eaten++;
@@ -37,7 +37,7 @@ static void	eat_func(t_philo *philo)
 
 static void	sleep_func(t_philo *philo)
 {
-	show_status("is sleeping", philo);
+	status_msg("is sleeping", philo);
 }
 
 /*
@@ -46,10 +46,22 @@ static void	sleep_func(t_philo *philo)
 */
 static void	think_func(t_philo *philo)
 {
-	show_status("is thinking", philo);
+	status_msg("is thinking", philo);
 }
 
-void	*thread_routine(void *philo_ptr)
+bool    is_dead(t_philo *philo)
+{
+    pthread_mutex_lock(&philo->data->dead_lock);
+    if (philo->data->died == 1)
+    {
+        pthread_mutex_unlock(&philo->data->dead_lock);
+        return (true);
+    }
+    pthread_mutex_unlock(&philo->data->dead_lock);
+    return (false);
+}
+
+void	*philos_routine(void *philo_ptr)
 {
 	t_philo *philo;
 
@@ -64,17 +76,3 @@ void	*thread_routine(void *philo_ptr)
 	}
 	return (NULL);
 }
-
-// void	*start_thread_routine(void *philo_ptr)
-// {
-// 	t_philo	*philos;
-
-// 	philos = (t_philo *)philo_ptr;
-// 	// while (1)
-// 	// {
-// 	// 	if (check_if_is_dead(philos) == true
-// 	// 		|| check_if_all_ate(philos) == true)
-// 	// 		break ;
-// 	// }
-// 	return (philo_ptr);
-// }

@@ -6,7 +6,7 @@
 /*   By: art3mis <art3mis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 23:15:34 by art3mis           #+#    #+#             */
-/*   Updated: 2024/04/12 23:11:03 by art3mis          ###   ########.fr       */
+/*   Updated: 2024/04/25 17:53:38 by art3mis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static int	__errcontext(char *reason)
 	 Check that the input contains only numbers, they should all be bigger
 	 than 0 except the number of meals each philo needs to eat.
 */
-bool    args_check_successfull(int argc, char **argv)
+bool    args_check_is_successfull(int argc, char **argv)
 {
 	int	i;
 	

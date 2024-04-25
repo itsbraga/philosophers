@@ -6,7 +6,7 @@
 /*   By: art3mis <art3mis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 18:37:23 by art3mis           #+#    #+#             */
-/*   Updated: 2024/04/19 13:18:24 by art3mis          ###   ########.fr       */
+/*   Updated: 2024/04/25 18:20:34 by art3mis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	__init_user_params(t_data *ph_data, char **argv)
 	return (EXIT_SUCCESS);
 }
 
-int	init_forks(t_data *ph_data)
+static int	__init_forks(t_data *ph_data)
 {
 	int	i;
 
@@ -56,7 +56,7 @@ int	init_forks(t_data *ph_data)
 	return (EXIT_SUCCESS);
 }
 
-void	init_philos(t_data *ph_data, char **argv)
+static void	__init_philos(t_data *ph_data, char **argv)
 {
 	int		i;
 
@@ -86,12 +86,12 @@ int	init(t_data *ph_data, char **argv)
 		printf("%s", RESET);
 		return (EXIT_FAILURE);
 	}
-	if (init_forks(ph_data) == EXIT_FAILURE)
+	if (__init_forks(ph_data) == EXIT_FAILURE)
 	{
 		printf("%s%s", RED, "Error: could not initialize mutexes ");
 		printf("%s%s\n", "for the forks.", RESET);
 		return (EXIT_FAILURE);
 	}
-	init_philos(ph_data, argv);
+	__init_philos(ph_data, argv);
 	return (EXIT_SUCCESS);
 }
