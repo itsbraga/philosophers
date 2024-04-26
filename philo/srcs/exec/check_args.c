@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_args.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: art3mis <art3mis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: annabrag <annabrag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 23:15:34 by art3mis           #+#    #+#             */
-/*   Updated: 2024/04/25 17:53:38 by art3mis          ###   ########.fr       */
+/*   Updated: 2024/04/26 17:52:48 by annabrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static bool	__is_only_number(char *argv)
 	return (true);
 }
 
-static int	__errcontext(char *reason)
+static int	__errcontext_n_exit(char *reason)
 {
 	while (*reason)
 	{
@@ -46,34 +46,34 @@ static int	__errcontext(char *reason)
 		write(STDERR_FILENO, reason, ft_strlen(reason));
 		write(STDERR_FILENO, "\n", 1);
 	}
-	return (EXIT_FAILURE);
+	exit(EXIT_FAILURE);
 }
 
 /*
 	 Check that the input contains only numbers, they should all be bigger
 	 than 0 except the number of meals each philo needs to eat.
 */
-bool    args_check_is_successfull(int argc, char **argv)
+bool	args_check_is_successfull(int argc, char **argv)
 {
 	int	i;
-	
+
 	i = 1;
 	while (i < argc)
 	{
 		if (__is_only_number(argv[i]) == false)
-			__errcontext("Only integers are allowed");
-		if (ft_atoi(argv[1]) > MAX_NBR_OF_PHILOS || ft_atoi(argv[1]) <= 0)
-			__errcontext("Invalid amount of philosophers");
-		if (ft_atoi(argv[2]) <= 0)
-			__errcontext("Invalid time to die");
-		if (ft_atoi(argv[3]) <= 0)
-			__errcontext("Invalid time to eat");
-		if (ft_atoi(argv[4]) <= 0)
-			__errcontext("Invalid time to sleep");
-		if (argv[5] != NULL && (ft_atoi(argv[5]) < 0))
-			__errcontext("Invalid number of times a philosopher must eat");
+			__errcontext_n_exit("Only integers are allowed");
 		i++;
 	}
+	if (ft_atoi(argv[1]) > MAX_NBR_OF_PHILOS || ft_atoi(argv[1]) <= 0)
+		__errcontext_n_exit("Invalid amount of philosophers");
+	if (ft_atoi(argv[2]) <= 0)
+		__errcontext_n_exit("Invalid time to die");
+	if (ft_atoi(argv[3]) <= 0)
+		__errcontext_n_exit("Invalid time to eat");
+	if (ft_atoi(argv[4]) <= 0)
+		__errcontext_n_exit("Invalid time to sleep");
+	if (argv[5] != NULL && (ft_atoi(argv[5]) < 0))
+		__errcontext_n_exit("Invalid number of times a philosopher must eat");
 	printf("\n%s%s%s%s\n\n", BOLD, GREEN, "\nCheck successfull! ✅", RESET);
 	return (true);
 }

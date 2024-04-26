@@ -23,8 +23,10 @@ PINK		:=	\e[38;2;255;182;193m
 
 NAME		=	philo
 CC			=	cc
-CFLAGS		=	-Wall -Wextra -Werror -Iinclude/
+CFLAGS		=	-Wall -Wextra -Werror -pthread -Iinclude/
 MAKEFLAGS	+=	--no-print-directory
+FSANITIZE	=	-fsanitize=thread
+DEBUG		=	-g -g3
 RM			=	rm -rf
 
 #******************************************************************************#
@@ -32,10 +34,10 @@ RM			=	rm -rf
 #******************************************************************************#
 
 EXEC_DIR		=	exec/
-EXEC_FILES		=	check_args.c init.c main.c
+EXEC_FILES		=	check_args.c supervisor.c main.c
 
 THREAD_DIR		=	threads/
-THREAD_FILES	=	actions.c monitoring.c create_destroy.c
+THREAD_FILES	=	actions.c routine.c init.c destroy.c
 
 TOOLS_DIR		=	tools/
 TOOLS_FILES		=	utils.c time.c lib.c
@@ -72,7 +74,7 @@ all: $(NAME)
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 				@mkdir -p $(dir $@)
-				@$(CC) $(DEPFLAGS) $(CFLAGS) -c $< -o $@
+				@$(CC) $(DEPFLAGS) $(CFLAGS) $(DEBUG) -c $< -o $@
 -include $(DEPS)
 
 $(NAME): $(OBJS)
@@ -80,8 +82,8 @@ $(NAME): $(OBJS)
 			@printf "$(ITAL)$(PURPLE)Generating: $(RESET)$(ITAL)$<          \r"
 			@printf "\n\n$(RESET)$(shell bash rainbow.sh "[Mandatory]"): "
 			@printf "$(RESET)$(BOLD)$(PINK)Compilation done!\n\n$(RESET)"
-			@printf "$(BOLD)================================================\n\n"
-			@$(CC) $(CFLAGS) $(OBJS) -pthread -o $(NAME)
+			@printf "$(BOLD)================================================\n\n$(RESET)"
+			@$(CC) $(CFLAGS) $(DEBUG) $(OBJS) -o $(NAME)
 
 clean:
 		@$(RM) $(OBJ_DIR)
@@ -94,6 +96,8 @@ fclean: clean
 
 re:		fclean all
 			@printf "✨ $(BOLD)$(YELLOW)Cleaning and rebuilding done! $(RESET)✨\n\n"
+
+san: $(FSANITIZE)
 
 diff:
 		$(info Repository's status, and the volume of per-file changes:)

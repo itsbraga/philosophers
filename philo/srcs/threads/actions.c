@@ -12,7 +12,7 @@
 
 #include "philo.h"
 
-static void	eat_func(t_philo *philo)
+void	eat_func(t_philo *philo)
 {
 	pthread_mutex_lock(philo->left_fork);
 	status_msg("has taken a fork (left)", philo);
@@ -28,51 +28,33 @@ static void	eat_func(t_philo *philo)
 	status_msg("is eating", philo);
 	pthread_mutex_lock(&philo->data->meal_lock);
 	philo->last_meal = get_current_time();
-	philo->meals_eaten++;
+	philo->meals_count++;
 	pthread_mutex_unlock(&philo->data->meal_lock);
 	usleep(philo->data->time_to_eat);
 	pthread_mutex_unlock(philo->left_fork);
 	pthread_mutex_unlock(philo->right_fork);
+	status_msg("finished", philo);
 }
 
-static void	sleep_func(t_philo *philo)
+void	sleep_func(t_philo *philo)
 {
 	status_msg("is sleeping", philo);
 }
 
-/*
-	They don't really think, they wait until they have
-	two forks to eat.
-*/
-static void	think_func(t_philo *philo)
+/* They don't really think, they wait until they have two forks to eat. */
+void	think_func(t_philo *philo)
 {
 	status_msg("is thinking", philo);
 }
 
-bool    is_dead(t_philo *philo)
+bool	death_check(t_philo *philo)
 {
-    pthread_mutex_lock(&philo->data->dead_lock);
-    if (philo->data->died == 1)
-    {
-        pthread_mutex_unlock(&philo->data->dead_lock);
-        return (true);
-    }
-    pthread_mutex_unlock(&philo->data->dead_lock);
-    return (false);
-}
-
-void	*philos_routine(void *philo_ptr)
-{
-	t_philo *philo;
-
-	philo = (t_philo *)philo_ptr;
-	if (philo->id % 2 == 0)
-		my_usleep(philo, 1);
-	while (is_dead(philo) == false)
+	pthread_mutex_lock(&philo->data->dead_lock);
+	if (philo->died == 1)
 	{
-		eat_func(philo);
-		sleep_func(philo);
-		think_func(philo);
+		pthread_mutex_unlock(&philo->data->dead_lock);
+		return (true);
 	}
-	return (NULL);
+	pthread_mutex_unlock(&philo->data->dead_lock);
+	return (false);
 }

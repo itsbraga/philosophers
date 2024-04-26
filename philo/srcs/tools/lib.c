@@ -3,16 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   lib.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: art3mis <art3mis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: annabrag <annabrag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 22:40:01 by art3mis           #+#    #+#             */
-/*   Updated: 2024/04/12 22:38:46 by art3mis          ###   ########.fr       */
+/*   Updated: 2024/04/26 18:26:15 by annabrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-const char	*colors[8] = {RED, ORANGE, YELLOW, GREEN, CYAN, BLUE, PURPLE, PINK};
+void	ft_bzero(void *s, size_t n)
+{
+	size_t	i;
+
+	i = 0;
+	if (!s && !n)
+		return ;
+	while (i < n)
+	{
+		*(char *)(s + i) = 0;
+		i++;
+	}
+}
 
 size_t	ft_strlen(const char *str)
 {
@@ -26,9 +38,9 @@ size_t	ft_strlen(const char *str)
 
 int	ft_atoi(const char *str)
 {
-	int i;
-	int sign;
-	int res;
+	int	i;
+	int	sign;
+	int	res;
 
 	i = 0;
 	sign = 1;
@@ -51,13 +63,15 @@ int	ft_atoi(const char *str)
 
 void	rainbow_txt(const char *str)
 {
+	const char	*colors[8] = {RED, ORANGE, YELLOW, GREEN, CYAN, BLUE, PURPLE,
+		PINK};
 	size_t		nb_colors;
 	size_t		i;
 	size_t		len;
 
 	nb_colors = sizeof(colors) / sizeof(colors[0]);
 	i = 0;
-	len = __ft_strlen(str);
+	len = ft_strlen(str);
 	while (i < len)
 	{
 		printf("%s%c", colors[i % nb_colors], str[i]);
@@ -68,13 +82,15 @@ void	rainbow_txt(const char *str)
 
 void	rainbow_txt_nonl(const char *str)
 {
+	const char	*colors[8] = {RED, ORANGE, YELLOW, GREEN, CYAN, BLUE, PURPLE,
+		PINK};
 	size_t		nb_colors;
 	size_t		i;
 	size_t		len;
 
 	nb_colors = sizeof(colors) / sizeof(colors[0]);
 	i = 0;
-	len = __ft_strlen(str);
+	len = ft_strlen(str);
 	while (i < len)
 	{
 		printf("%s%c", colors[i % nb_colors], str[i]);

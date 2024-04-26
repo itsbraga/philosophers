@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: art3mis <art3mis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: annabrag <annabrag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 15:28:53 by annabrag          #+#    #+#             */
-/*   Updated: 2024/04/25 18:37:35 by art3mis          ###   ########.fr       */
+/*   Updated: 2024/04/26 18:25:29 by annabrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,14 @@ static int	__error_help(void)
 	printf("%s%s%s", BOLD, RED, "\nError: Invalid amount of arguments");
 	printf("%s\n\n\n", RESET);
 	__walkthrough();
-	return (EXIT_FAILURE);
+	exit(EXIT_FAILURE);
 }
 
 int	main(int argc, char **argv)
 {
 	t_data	ph_data;
 
-	if (argc != 5 || argc != 6)
+	if (argc < 5 || argc > 6)
 		__error_help();
 	if (args_check_is_successfull(argc, argv) == false)
 		return (EXIT_FAILURE);

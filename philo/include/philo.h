@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: art3mis <art3mis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: annabrag <annabrag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 16:37:14 by annabrag          #+#    #+#             */
-/*   Updated: 2024/04/25 18:28:36 by art3mis          ###   ########.fr       */
+/*   Updated: 2024/04/26 18:26:29 by annabrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,15 +51,17 @@
  * STRUCTS
 \******************************************************************************/
 
-struct s_data;
+struct	s_data;
 
 typedef struct s_philo
 {
+	pthread_t		thread;
 	struct s_data	*data;
+	int				died;
 	int				id;
 	int				eating;
 	size_t			last_meal;
-	size_t			meals_eaten;
+	size_t			meals_count;
 	pthread_mutex_t	*right_fork;
 	pthread_mutex_t	*left_fork;
 }				t_philo;
@@ -72,9 +74,8 @@ typedef struct s_data
 	size_t			time_to_die;
 	size_t			time_to_eat;
 	size_t			time_to_sleep;
-	size_t			nbr_times_must_eat;
-	int				died;
-	pthread_mutex_t *forks;
+	size_t			nbr_times_each_must_eat;
+	pthread_mutex_t	*forks;
 	pthread_mutex_t	write_changes_lock;
 	pthread_mutex_t	dead_lock;
 	pthread_mutex_t	meal_lock;
@@ -84,17 +85,21 @@ typedef struct s_data
  * MANDATORY
 \******************************************************************************/
 
+void	ft_bzero(void *s, size_t n);
 size_t	ft_strlen(const char *str);
 int		ft_atoi(const char *str);
-bool    args_check_is_successfull(int argc, char **argv);
+bool	args_check_is_successfull(int argc, char **argv);
 
 size_t	get_current_time(void);
 void	my_usleep(t_philo *philo, size_t time);
 void	status_msg(char *str, t_philo *philo);
 
 int		init(t_data *ph_data, char **argv);
-bool    is_dead(t_philo *philo);
+void	eat_func(t_philo *philo);
+void	sleep_func(t_philo *philo);
+void	think_func(t_philo *philo);
+bool	death_check(t_philo *philo);
 
-void    destroy_mutexes(t_data *ph_data);
+void	destroy_mutexes(t_data *ph_data);
 
 #endif
