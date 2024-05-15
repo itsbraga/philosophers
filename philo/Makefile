@@ -24,47 +24,24 @@ PINK		:=	\e[38;2;255;182;193m
 NAME		=	philo
 CC			=	cc
 CFLAGS		=	-Wall -Wextra -Werror -pthread -Iinclude/
+DEPFLAGS	=	-MMD -MP
 MAKEFLAGS	+=	--no-print-directory
 FSANITIZE	=	-fsanitize=thread
 DEBUG		=	-g -g3
 RM			=	rm -rf
 
 #******************************************************************************#
-#	SOURCES
+#	SOURCES, OBJECTS AND DEPENDENCIES
 #******************************************************************************#
 
-EXEC_DIR		=	exec/
-EXEC_FILES		=	check_args.c supervisor.c main.c
+SRC_DIR		=	$(shell find srcs -type d)
+SRCS		=	$(foreach dir, $(SRC_DIR), $(wildcard $(dir)/*.c))
+vpath %.c $(SRC_DIR)
 
-THREAD_DIR		=	threads/
-THREAD_FILES	=	actions.c routine.c init.c destroy.c
+OBJ_DIR		=	objs/
+OBJS		=	$(patsubst srcs/%.c,$(OBJ_DIR)%.o,$(SRCS))
 
-TOOLS_DIR		=	tools/
-TOOLS_FILES		=	utils.c time.c lib.c
-
-#******************************************************************************#
-#	COMBINE FILES AND DIRECTORIES
-#******************************************************************************#
-
-SRC_DIR			=	srcs/
-SRCS			=	$(addprefix $(THREAD_DIR), $(THREAD_FILES)) \
-					$(addprefix $(EXEC_DIR), $(EXEC_FILES)) \
-					$(addprefix $(TOOLS_DIR), $(TOOLS_FILES))
-
-OBJ_DIR			=	objs/
-OBJ_NAMES		=	$(SRCS:.c=.o)
-OBJ_DIRS		=	$(addprefix $(OBJ_DIR), $(THREAD_DIR), $(EXEC_DIR), \
-											$(TOOLS_DIR))
-OBJS			=	$(addprefix $(OBJ_DIR), $(OBJ_NAMES))
-
-#******************************************************************************#
-#	DEPENDENCIES
-#******************************************************************************#
-
-DEP_NAMES		=	$(SRCS:.c=.d)
-DEP_DIRS		=	$(addprefix $(OBJ_DIR), $(THREAD_DIR), $(EXEC_DIR), \
-											$(TOOLS_DIR))
-DEPS			=	$(addprefix $(OBJ_DIR), $(DEP_NAMES))
+DEPS		=	$(patsubst srcs/%.c,$(OBJ_DIR)%.d,$(SRCS))
 
 #******************************************************************************#
 #	RULES
@@ -72,9 +49,9 @@ DEPS			=	$(addprefix $(OBJ_DIR), $(DEP_NAMES))
 
 all: $(NAME)
 
-$(OBJ_DIR)%.o: $(SRC_DIR)%.c
+$(OBJ_DIR)%.o: %.c
 				@mkdir -p $(dir $@)
-				@$(CC) $(DEPFLAGS) $(CFLAGS) $(DEBUG) -c $< -o $@
+				@$(CC) $(DEPFLAGS) $(CFLAGS) -c $< -o $@
 -include $(DEPS)
 
 $(NAME): $(OBJS)
@@ -83,7 +60,7 @@ $(NAME): $(OBJS)
 			@printf "\n\n$(RESET)$(shell bash rainbow.sh "[Mandatory]"): "
 			@printf "$(RESET)$(BOLD)$(PINK)Compilation done!\n\n$(RESET)"
 			@printf "$(BOLD)================================================\n\n$(RESET)"
-			@$(CC) $(CFLAGS) $(DEBUG) $(OBJS) -o $(NAME)
+			@$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 
 clean:
 		@$(RM) $(OBJ_DIR)
