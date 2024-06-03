@@ -6,7 +6,7 @@
 /*   By: annabrag <annabrag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 16:37:14 by annabrag          #+#    #+#             */
-/*   Updated: 2024/04/26 18:26:29 by annabrag         ###   ########.fr       */
+/*   Updated: 2024/06/03 21:59:57 by annabrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,31 +55,34 @@ struct	s_data;
 
 typedef struct s_philo
 {
-	pthread_t		thread;
-	struct s_data	*data;
-	int				died;
-	int				id;
-	int				eating;
-	size_t			last_meal;
-	size_t			meals_count;
-	pthread_mutex_t	*right_fork;
-	pthread_mutex_t	*left_fork;
+	pthread_t			thread;
+	int					id;
+	int					died;
+	int					eating;
+	size_t				last_meal;
+	size_t				meals_count;
+	pthread_mutex_t		*right_fork;
+	pthread_mutex_t		*left_fork;
+	struct s_data		*data;
 }				t_philo;
 
 typedef struct s_data
 {
-	t_philo			*philos;
-	size_t			nbr_of_philos;
-	size_t			start_time;
-	size_t			time_to_die;
-	size_t			time_to_eat;
-	size_t			time_to_sleep;
-	size_t			nbr_times_each_must_eat;
-	pthread_mutex_t	*forks;
-	pthread_mutex_t	write_changes_lock;
-	pthread_mutex_t	dead_lock;
-	pthread_mutex_t	meal_lock;
+	t_philo				*philos;
+	size_t				nbr_of_philos;
+	size_t				start_time;
+	size_t				time_to_die;
+	size_t				time_to_eat;
+	size_t				time_to_sleep;
+	size_t				nbr_times_each_must_eat;
+	pthread_mutex_t		*forks;
+	pthread_mutex_t		write_lock;
+	pthread_mutex_t		dead_lock;
+	pthread_mutex_t		meal_lock;
 }				t_data;
+
+// write -> save writes changes after a thread has accessed a variable
+//			and modified its value
 
 /******************************************************************************\
  * MANDATORY
@@ -94,7 +97,10 @@ size_t	get_current_time(void);
 void	my_usleep(t_philo *philo, size_t time);
 void	status_msg(char *str, t_philo *philo);
 
+int		alloc(t_data *ph_data);
 int		init(t_data *ph_data, char **argv);
+void	create_threads(t_data *ph_data);
+
 void	eat_func(t_philo *philo);
 void	sleep_func(t_philo *philo);
 void	think_func(t_philo *philo);

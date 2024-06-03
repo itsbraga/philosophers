@@ -6,7 +6,7 @@
 /*   By: annabrag <annabrag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 15:28:53 by annabrag          #+#    #+#             */
-/*   Updated: 2024/04/26 18:25:29 by annabrag         ###   ########.fr       */
+/*   Updated: 2024/06/03 22:08:22 by annabrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	main(int argc, char **argv)
 	if (args_check_is_successfull(argc, argv) == false)
 		return (EXIT_FAILURE);
 	init(&ph_data, argv);
-	// create threads
+	create_threads(&ph_data);
 	destroy_mutexes(&ph_data);
 	return (EXIT_SUCCESS);
 }

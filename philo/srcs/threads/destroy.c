@@ -6,7 +6,7 @@
 /*   By: annabrag <annabrag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 11:45:53 by annabrag          #+#    #+#             */
-/*   Updated: 2024/04/26 17:12:26 by annabrag         ###   ########.fr       */
+/*   Updated: 2024/06/03 20:20:58 by annabrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	destroy_mutexes(t_data *ph_data)
 		pthread_mutex_destroy(&ph_data->forks[i]);
 		i++;
 	}
-	pthread_mutex_destroy(&ph_data->write_changes_lock);
+	pthread_mutex_destroy(&ph_data->write_lock);
 	pthread_mutex_destroy(&ph_data->dead_lock);
 	pthread_mutex_destroy(&ph_data->meal_lock);
 	__free_data(ph_data);

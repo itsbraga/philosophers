@@ -6,7 +6,7 @@
 /*   By: annabrag <annabrag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 23:15:34 by art3mis           #+#    #+#             */
-/*   Updated: 2024/04/26 17:52:48 by annabrag         ###   ########.fr       */
+/*   Updated: 2024/06/03 20:35:12 by annabrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static bool	__is_only_number(char *argv)
 	return (true);
 }
 
-static int	__errcontext_n_exit(char *reason)
+static void	__errcontext_n_exit(char *reason)
 {
 	while (*reason)
 	{
