@@ -6,7 +6,7 @@
 /*   By: annabrag <annabrag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 18:37:23 by art3mis           #+#    #+#             */
-/*   Updated: 2024/06/03 20:33:10 by annabrag         ###   ########.fr       */
+/*   Updated: 2024/06/21 18:47:35 by annabrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,15 @@ int	alloc(t_data *ph_data)
 	ph_data->philos = malloc(sizeof(t_philo) * ph_data->nbr_of_philos);
 	if (!ph_data->philos)
 	{
-		printf("%s%s\n", RED, "Error: Philos memory allocation failed.");
-		printf("%s", RESET);
+		// printf("%s%s\n", RED, "Error: Philos memory allocation failed.");
+		// printf("%s", RESET);
 		return (EXIT_FAILURE);
 	}
 	ph_data->forks = malloc(sizeof(pthread_mutex_t) * ph_data->nbr_of_philos);
 	if (!ph_data->forks)
 	{
-		printf("%s%s\n", RED, "Error: Forks memory allocation failed.");
-		printf("%s", RESET);
+		// printf("%s%s\n", RED, "Error: Forks memory allocation failed.");
+		// printf("%s", RESET);
 		return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);
@@ -103,6 +103,8 @@ int	init(t_data *ph_data, char **argv)
 		printf("%s%s\n", "parameters.", RESET);
 		return (EXIT_FAILURE);
 	}
+	if (alloc(ph_data) == 1)
+		return (EXIT_FAILURE);
 	if (__init_n_assign_forks(ph_data) == EXIT_FAILURE)
 	{
 		printf("%s%s\n", RED, "Error: Fork mutexes cannot be initialized.");

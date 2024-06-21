@@ -6,7 +6,7 @@
 /*   By: annabrag <annabrag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 12:29:26 by art3mis           #+#    #+#             */
-/*   Updated: 2024/06/21 16:53:12 by annabrag         ###   ########.fr       */
+/*   Updated: 2024/06/21 18:44:23 by annabrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	*__philo_routine(void *philo_ptr)
 
 	philo = (t_philo *)philo_ptr;
 	if (philo->id % 2 == 0)
-		my_usleep(philo, 1);
+		my_usleep(philo, 200);
 	while (death_check(philo) == false)
 	{
 		eat_func(philo);

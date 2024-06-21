@@ -60,7 +60,7 @@ $(NAME): $(OBJS)
 			@printf "\n\n$(RESET)$(shell bash rainbow.sh "[Mandatory]"): "
 			@printf "$(RESET)$(BOLD)$(PINK)Compilation done!\n\n$(RESET)"
 			@printf "$(BOLD)================================================\n\n$(RESET)"
-			@$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
+			@$(CC) $(CFLAGS) -g3 $(OBJS) -o $(NAME)
 
 clean:
 		@$(RM) $(OBJ_DIR)

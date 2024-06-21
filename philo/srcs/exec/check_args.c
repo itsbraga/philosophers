@@ -6,7 +6,7 @@
 /*   By: annabrag <annabrag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 23:15:34 by art3mis           #+#    #+#             */
-/*   Updated: 2024/06/03 20:35:12 by annabrag         ###   ########.fr       */
+/*   Updated: 2024/06/21 17:21:57 by annabrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static bool	__is_space(char *argv)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
 	if (argv[i] == 32 || (argv[i] >= 9 && argv[i] <= 13))
@@ -24,7 +24,7 @@ static bool	__is_space(char *argv)
 
 static bool	__is_only_number(char *argv)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
 	if (__is_space(&argv[i]) && argv[i + 1] == true)
