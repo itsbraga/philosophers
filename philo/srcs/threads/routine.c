@@ -6,7 +6,7 @@
 /*   By: annabrag <annabrag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 12:29:26 by art3mis           #+#    #+#             */
-/*   Updated: 2024/06/03 21:51:17 by annabrag         ###   ########.fr       */
+/*   Updated: 2024/06/21 16:53:12 by annabrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	create_threads(t_data *ph_data)
 		}
 		i++;
 	}
+	i = 0;
 	while (i < ph_data->nbr_of_philos)
 	{
 		if (pthread_join(ph_data->philos[i].thread, NULL) != 0)
