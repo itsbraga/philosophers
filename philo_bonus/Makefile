@@ -1,19 +1,15 @@
 #******************************************************************************#
-#	MODES && COLORS
+#	FEATURES
 #******************************************************************************#
 
 RESET		:=	\e[0m
 BOLD		:=	\e[1m
 ITAL		:=	\e[3m
-UNDERLINE	:=	\e[4m
+BLINK		:=	\e[5m
 
-RED			:=	\e[31m
-ORANGE		:=	\e[38;5;208m
 YELLOW		:=	\e[33m
 GREEN		:=	\e[32m
-CYAN		:=	\e[36m
 BLUE		:=	\e[34m
-INDIGO		:=	\e[34;45m
 PURPLE		:=	\e[35m
 PINK		:=	\e[38;2;255;182;193m
 
@@ -22,42 +18,43 @@ PINK		:=	\e[38;2;255;182;193m
 #******************************************************************************#
 
 NAME_BONUS	=	philo_bonus
+
 CC			=	cc
-CFLAGS		=	-Wall -Wextra -Werror #-g -g3
+CFLAGS		=	-Wall -Wextra -Werror -pthread -Iinclude/
+DEPFLAGS	=	-MMD -MP
 MAKEFLAGS	+=	--no-print-directory
-RM			=	rm -rf
+
+FSANITIZE	=	-fsanitize=thread
+DEBUG		=	-g -g3
 
 #******************************************************************************#
 #	SOURCES
 #******************************************************************************#
 
-CONFIGS_DIR		=	configs/
-CONFIGS_FILES	=	
+EXEC_DIR	=	exec/
+EXEC_F		=	
 
-EXEC_DIR		=	exec/
-EXEC_FILES		=	
+THREADS_DIR	=	threads/
+THREADS_F	=	
+
+TOOLS_DIR	=	tools/
+TOOLS_F		=	
 
 #******************************************************************************#
 #	COMBINE FILES AND DIRECTORIES
 #******************************************************************************#
 
-SRC_DIR			=	bonus_srcs/
-SRCS			=	$(addprefix $(CONFIGS_DIR), $(CONFIGS_FILES)) \
-					$(addprefix $(EXEC_DIR), $(EXEC_FILES)) \
-					main.c
+SRCS_DIR	=	bonus_srcs/
+SRCS_F		=	$(addprefix $(EXEC_DIR), $(EXEC_F)) \
+				$(addprefix $(THREADS_DIR), $(THREADS_F)) \
+				$(addprefix $(TOOLS_DIR), $(TOOLS_F)) \
+				main.c
 
-OBJ_DIR			=	bonus_objs/
-OBJ_NAMES		=	$(SRCS:.c=.o)
-OBJ_DIRS		=	$(addprefix $(OBJ_DIR), $(CONFIGS_DIR), $(EXEC_DIR))
-OBJS			=	$(addprefix $(OBJ_DIR), $(OBJ_NAMES))
+OBJS_DIR	=	bonus_objs/
+OBJS_F		=	$(patsubst %.c,$(OBJS_DIR)%.o,$(SRCS_F))
 
-#******************************************************************************#
-#	DEPENDENCIES
-#******************************************************************************#
+DEPS_F		=	$(patsubst %.c,$(OBJS_DIR)%.d,$(SRCS_F))
 
-DEP_NAMES		=	$(SRCS:.c=.d)
-DEP_DIRS		=	$(addprefix $(OBJ_DIR), $(CONFIGS_DIR), $(EXEC_DIR))
-DEPS			=	$(addprefix $(OBJ_DIR), $(DEP_NAMES))
 
 #******************************************************************************#
 #	RULES
@@ -65,39 +62,32 @@ DEPS			=	$(addprefix $(OBJ_DIR), $(DEP_NAMES))
 
 all: $(NAME_BONUS)
 
-$(OBJ_DIR)%.o: $(SRC_DIR)%.c
+$(OBJS_DIR)%.o: $(SRCS_DIR)%.c
 				@mkdir -p $(dir $@)
-				@printf "$(BOLD)$(ITAL)$(PURPLE)Compiling: $(RESET)$(ITAL)$<          \r"
-				@$(CC) $(DEPFLAGS) $(CFLAGS) -c $< -o $@
--include $(DEPS)
+				@printf "$(BOLD)$(ITAL)$(GREEN)Compiled: $(RESET)$(ITAL)$<                                  \n"
+				@$(CC) $(DEBUG) $(DEPFLAGS) $(CFLAGS) -c $< -o $@
+-include $(DEPS_F)
 
-$(NAME_BONUS): $(OBJS)
-				@printf "$(RESET)$(shell bash rainbow.sh "[PHILO Bonus]"): "
-				@printf "$(RESET)$(BOLD)$(YELLOW)Compilation done!\n\n$(RESET)"
-				@$(CC) $(CFLAGS) $(OBJS) -o $(NAME_BONUS)
+$(NAME_BONUS): $(OBJS_F)
+				@printf "$(RESET)$(BOLD)$(shell bash rainbow.sh "[Bonus]"): "
+				@printf "$(RESET)Compilation done!\n\n"
+				@$(CC) $(DEBUG) $(CFLAGS) $(OBJS_F) -o $(NAME_BONUS)
 
 clean:
-		@$(RM) $(OBJ_DIR)
-		@printf "\n$(BOLD)$(GREEN)[objs]:\t $(RESET)Clean completed\n"
+		@rm -rf $(OBJS_DIR)
+		@printf "\n$(BOLD)$(PURPLE)[objs]:\t $(RESET)Clean completed\n"
 
 fclean: clean
-			@$(RM) $(NAME_BONUS)
-			@find . -name ".DS_Store" -delete
-			@printf "$(BOLD)$(BLUE)[execs]: $(RESET)Full clean completed!\n\n"
-			@printf "\n. ⋅ ˚̣- : ✧ : – ⭒ ⊹ ⭒ ⊹ ⭒ ₊° ˗ ˏ ˋ ♡ ˎˊ ˗ °₊ ⭒ ⊹ ⭒ ⊹ ⭒ – : ✧ : -˚̣⋅ .\n\n\n"
+			@rm -rf $(NAME_BONUS)
+			@printf "$(BOLD)$(PINK)[exec]:  $(RESET)Full clean completed!\n\n"
 
 re:		fclean all
-			@printf "\n. ⋅ ˚̣- : ✧ : – ⭒ ⊹ ⭒ ⊹ ⭒ ₊° ˗ ˏ ˋ ♡ ˎˊ ˗ °₊ ⭒ ⊹ ⭒ ⊹ ⭒ – : ✧ : -˚̣⋅ .\n"
-			@printf "\n\n✨ $(BOLD)CLEANING and REBUILDING DONE! $(RESET)✨\n\n"
+			@printf "\n$(BOLD)$(YELLOW)make re: $(RESET)All files have been rebuilt! ✨\n\n"
 
-diff:
-		$(info Repository's status, and the volume of per-file changes:)
-		@printf "$(RESET)\n\n"
-		@git status
-		@git diff --stat
+san: $(FSANITIZE)
 
 norm:
 		@clear
-		@norminette $(SRC_DIR) | grep -v Norme -B1 || true
+		@norminette $(SRCS_DIR) | grep -v Norme -B1 || true
 
-.PHONY:		all clean fclean re diff norm
+.PHONY: all clean fclean re san norm
