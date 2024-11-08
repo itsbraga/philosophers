@@ -6,7 +6,7 @@
 /*   By: annabrag <annabrag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 18:10:24 by annabrag          #+#    #+#             */
-/*   Updated: 2024/11/08 18:13:10 by annabrag         ###   ########.fr       */
+/*   Updated: 2024/11/08 18:50:23 by annabrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 # define ITAL			"\e[3m"
 # define UNDERLINE		"\e[4m"
 
-# define BLACK			"\e[30m"
 # define GRAY			"\e[90m"
 # define RED			"\e[31m"
 # define GREEN			"\e[32m"

@@ -6,7 +6,7 @@
 /*   By: annabrag <annabrag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 18:37:23 by art3mis           #+#    #+#             */
-/*   Updated: 2024/11/08 18:19:53 by annabrag         ###   ########.fr       */
+/*   Updated: 2024/11/08 18:52:20 by annabrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static void	__fork_assignment(t_data *ph_data)
 	}
 }
 
-static int	__init_philos(t_data *ph_data, char **argv)
+static int	__init_philos(t_data *ph_data)
 {
 	int	i;
 
@@ -106,7 +106,7 @@ int	init(t_data *ph_data, char **argv)
 		return (FAILURE);
 	}
 	__fork_assignment(ph_data);
-	if (__init_philos(ph_data, argv) == FAILURE)
+	if (__init_philos(ph_data) == FAILURE)
 	{
 		err_msg("Failed to initialize philosopher threads.");
 		return (FAILURE);

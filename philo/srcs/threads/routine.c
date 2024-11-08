@@ -6,7 +6,7 @@
 /*   By: annabrag <annabrag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 12:29:26 by art3mis           #+#    #+#             */
-/*   Updated: 2024/11/08 18:21:44 by annabrag         ###   ########.fr       */
+/*   Updated: 2024/11/08 18:52:41 by annabrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	*__philo_routine(void *philo_ptr)
 
 void	init_threads(t_data *ph_data)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
 	ph_data->start_time = get_current_time();

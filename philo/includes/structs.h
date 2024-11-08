@@ -6,7 +6,7 @@
 /*   By: annabrag <annabrag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 18:04:22 by annabrag          #+#    #+#             */
-/*   Updated: 2024/11/08 18:06:31 by annabrag         ###   ########.fr       */
+/*   Updated: 2024/11/08 18:51:52 by annabrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,20 @@
 # define STRUCTS_H
 
 # include "philo.h"
+
+struct s_data;
+typedef struct s_philo
+{
+	pthread_t			thread;
+	int					id;
+	int					died;
+	int					is_eating;
+	int					last_meal;
+	int					meals_count;
+	pthread_mutex_t		*right_fork;
+	pthread_mutex_t		*left_fork;
+	struct s_data		*data;
+}				t_philo;
 
 /*	write_lock:
 
@@ -34,18 +48,5 @@ typedef struct s_data
 	pthread_mutex_t		dead_lock;
 	pthread_mutex_t		meal_lock;
 }				t_data;
-
-typedef struct s_philo
-{
-	pthread_t			thread;
-	int					id;
-	int					died;
-	int					is_eating;
-	int					last_meal;
-	int					meals_count;
-	pthread_mutex_t		*right_fork;
-	pthread_mutex_t		*left_fork;
-	t_data				*data;
-}				t_philo;
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: annabrag <annabrag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 18:18:10 by annabrag          #+#    #+#             */
-/*   Updated: 2024/11/08 18:20:05 by annabrag         ###   ########.fr       */
+/*   Updated: 2024/11/08 18:50:54 by annabrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ void	init_threads(t_data *ph_data);
 void	ft_bzero(void *s, size_t n);
 size_t	ft_strlen(const char *str);
 int		ft_atoi(const char *str);
+void	rainbow_txt(const char *str);
+void	rainbow_txt_nonl(const char *str);
 
 // msg.c
 void	status_msg(char *str, t_philo *philo);

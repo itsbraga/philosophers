@@ -8,7 +8,7 @@ ITAL		:=	\e[3m
 BLINK		:=	\e[5m
 
 ORANGE		:=	\e[38;5;208m
-YELLOW		:=	\e[33m
+YELLOW		:=	\e[38;2;255;234;150m
 GREEN		:=	\e[32m
 BLUE		:=	\e[34m
 CYAN		:=	\e[36m

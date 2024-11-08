@@ -6,7 +6,7 @@
 /*   By: annabrag <annabrag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 18:18:59 by annabrag          #+#    #+#             */
-/*   Updated: 2024/11/08 18:20:13 by annabrag         ###   ########.fr       */
+/*   Updated: 2024/11/08 18:50:45 by annabrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,25 +30,6 @@
 # define ERR_MALLOC "Memory allocation failed"
 # define ERR_THREAD_CREA "Thread creation failed"
 # define ERR_THREAD_JOIN "Thread join failed"
-
-/******************************************************************************\
- * TEXT CUSTOM
-\******************************************************************************/
-
-# define RESET "\e[0m"
-# define BOLD "\e[1m"
-
-# define RED "\e[31m"
-# define ORANGE "\e[38;5;208m"
-# define YELLOW "\e[33m"
-# define GREEN "\e[32m"
-# define CYAN "\e[36m"
-# define BLUE "\e[34m"
-# define PURPLE "\e[35m"
-# define PINK "\e[38;2;255;182;193m"
-
-void	rainbow_txt(const char *str);
-void	rainbow_txt_nonl(const char *str);
 
 /******************************************************************************\
  * WALKTHROUGH MENU
