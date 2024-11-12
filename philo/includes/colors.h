@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   colors.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: annabrag <annabrag@student.42.fr>          +#+  +:+       +#+        */
+/*   By: art3mis <art3mis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 18:10:24 by annabrag          #+#    #+#             */
-/*   Updated: 2024/11/08 18:50:23 by annabrag         ###   ########.fr       */
+/*   Updated: 2024/11/12 20:15:54 by art3mis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # define BOLD			"\e[1m"
 # define ITAL			"\e[3m"
 # define UNDERLINE		"\e[4m"
+# define BLINK          "\e[5m"
 
 # define GRAY			"\e[90m"
 # define RED			"\e[31m"

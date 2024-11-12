@@ -3,36 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: annabrag <annabrag@student.42.fr>          +#+  +:+       +#+        */
+/*   By: art3mis <art3mis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 19:41:18 by art3mis           #+#    #+#             */
-/*   Updated: 2024/11/08 18:22:11 by annabrag         ###   ########.fr       */
+/*   Updated: 2024/11/12 23:13:36 by art3mis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-size_t	get_current_time(void)
+size_t	get_current_timestamp(void)
 {
-	struct timeval	current_time;
+	struct timeval	time;
 
-	if (gettimeofday(&current_time, NULL) == -1)
+	if (gettimeofday(&time, NULL) == -1)
 	{
 		err_msg("gettimeofday() failed");
 		return (-1);
 	}
-	return (current_time.tv_sec * 1000 + current_time.tv_usec / 1000);
+	return ((time.tv_sec * 1000) + (time.tv_usec / 1000));
 }
 
-void	my_usleep(t_philo *philo, size_t time)
+void	ft_usleep(size_t msec, t_data *data)
 {
-	size_t	start_time;
+	size_t	start;
 
-	start_time = get_current_time();
-	while (philo->died == 0)
-	{
-		if (get_current_time() - start_time >= time)
-			break ;
-		usleep(100);
-	}
+	start = get_current_timestamp();
+	while ((get_current_timestamp() - start) < msec && data->died == false)
+		usleep(1000);
 }

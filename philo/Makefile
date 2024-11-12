@@ -28,30 +28,30 @@ DEPFLAGS	=	-MMD -MP
 MAKEFLAGS	+=	--no-print-directory
 
 FSANITIZE	=	-fsanitize=thread
+VALG_TOOL	=	--tool=helgrind
 DEBUG		=	-g -g3
 
 #******************************************************************************#
 #	SOURCES
 #******************************************************************************#
 
-EXEC_DIR	=	exec/
-EXEC_F		=	check_args.c init.c
+MAIN_DIR	=	main/
+MAIN_F		=	check_args.c init_structs.c main.c
 
 THREADS_DIR	=	threads/
-THREADS_F	=	forks.c actions.c destroy.c routine.c
+THREADS_F	=	threads.c routine.c supervisor.c
 
 TOOLS_DIR	=	tools/
-TOOLS_F		=	lib.c time.c msg.c
+TOOLS_F		=	lib.c time.c msg.c custom.c
 
 #******************************************************************************#
 #	COMBINE FILES AND DIRECTORIES
 #******************************************************************************#
 
 SRCS_DIR		=	srcs/
-SRCS_F			=	$(addprefix $(EXEC_DIR), $(EXEC_F)) \
+SRCS_F			=	$(addprefix $(MAIN_DIR), $(MAIN_F)) \
 					$(addprefix $(THREADS_DIR), $(THREADS_F)) \
-					$(addprefix $(TOOLS_DIR), $(TOOLS_F)) \
-					main.c
+					$(addprefix $(TOOLS_DIR), $(TOOLS_F))
 
 OBJS_DIR		=	objs/
 OBJS_F			=	$(patsubst %.c,$(OBJS_DIR)%.o,$(SRCS_F))

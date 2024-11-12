@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_args.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: annabrag <annabrag@student.42.fr>          +#+  +:+       +#+        */
+/*   By: art3mis <art3mis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 18:19:21 by annabrag          #+#    #+#             */
-/*   Updated: 2024/11/08 18:19:45 by annabrag         ###   ########.fr       */
+/*   Updated: 2024/11/12 22:29:00 by art3mis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,31 +46,34 @@ static void	__exit_with_context(char *reason)
 }
 
 /*
-	 Check that the input contains only numbers, they should all be bigger
+	 Checks if the input contains only numbers, they should all be bigger
 	 than 0 except the number of meals each philo needs to eat.
 */
 bool	args_check_is_successfull(int argc, char **argv)
 {
 	int	i;
 
+	if (argv == NULL)
+		return (false);
 	i = 1;
 	while (i < argc)
 	{
+		if (argv[i] == NULL)
+			return (false);
 		if (__is_only_number(argv[i]) == false)
 			__exit_with_context("Only integers are allowed");
 		i++;
 	}
-	if (ft_atoi(argv[1]) > MAX_NBR_OF_PHILOS || ft_atoi(argv[1]) <= 0)
-		__exit_with_context("Invalid amount of philosophers");
-	if (ft_atoi(argv[2]) <= 0)
-		__exit_with_context("Invalid time_to_die");
-	if (ft_atoi(argv[3]) <= 0)
-		__exit_with_context("Invalid time_to_eat");
-	if (ft_atoi(argv[4]) <= 0)
-		__exit_with_context("Invalid time_to_sleep");
-	if (argv[5] != NULL && (ft_atoi(argv[5]) < 0))
-		__exit_with_context("Invalid \
-		number_of_times_each_philosopher_must_eat");
-	printf("\n%s%s%s\n\n", BOLD GREEN, "\nCheck successfull! ✅", RESET);
+	if (ft_atol(argv[1]) > MAX_NBR_OF_PHILOS || ft_atol(argv[1]) <= 0)
+		__exit_with_context(ERR_PHILO);
+	if (ft_atol(argv[2]) <= 0)
+		__exit_with_context(ERR_TTD);
+	if (ft_atol(argv[3]) <= 0)
+		__exit_with_context(ERR_TTE);
+	if (ft_atol(argv[4]) <= 0)
+		__exit_with_context(ERR_TTS);
+	if (argv[5] != NULL && (ft_atol(argv[5]) < 0))
+		__exit_with_context(ERR_MUST_EAT);
+	printf("\n%s\n\n", BOLD BLINK GREEN "Check passed successfully!" RESET);
 	return (true);
 }

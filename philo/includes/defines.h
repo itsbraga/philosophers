@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   defines.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: annabrag <annabrag@student.42.fr>          +#+  +:+       +#+        */
+/*   By: art3mis <art3mis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 18:18:59 by annabrag          #+#    #+#             */
-/*   Updated: 2024/11/08 18:50:45 by annabrag         ###   ########.fr       */
+/*   Updated: 2024/11/12 21:05:37 by art3mis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,17 @@
 # define ERR_THREAD_CREA "Thread creation failed"
 # define ERR_THREAD_JOIN "Thread join failed"
 
+# define ERR_INIT_DATA "Failed to initialize from your parameters"
+# define ERR_INIT_FORK "Something went wrong with fork initialization"
+# define ERR_INIT_PHILO "Failed to initialize philosopher threads"
+
+# define ERR_ARG "Invalid amount of arguments"
+# define ERR_MUST_EAT "Invalid number_of_times_each_philosopher_must_eat"
+# define ERR_PHILO "Invalid amount of philosophers"
+# define ERR_TTD "Invalid time_to_die"
+# define ERR_TTE "Invalid time_to_eat"
+# define ERR_TTS "Invalid time_to_sleep"
+
 /******************************************************************************\
  * WALKTHROUGH MENU
 \******************************************************************************/
@@ -40,11 +51,11 @@
 # define SEPARATOR_2 "=========================\n\n"
 # define FOOTER "=================================================\
 =============="
-# define ARGV1 "argv[1]:\tnumber of philosophers\n"
-# define ARGV2 "argv[2]:\ttime a philosopher will die if he doesn't eat\n"
-# define ARGV3 "argv[3]:\ttime it takes a philosopher to eat\n"
-# define ARGV4 "argv[4]:\ttime it takes a philosopher to sleep\n"
-# define ARGV5 "argv[5]:\tnumber of times a philosopher must eat\n"
+# define ARGV1 "[1] amount of philosophers\n"
+# define ARGV2 "[2] time a philosopher will die if he doesn't eat\n"
+# define ARGV3 "[3] time it takes a philosopher to eat\n"
+# define ARGV4 "[4] time it takes a philosopher to sleep\n"
+# define ARGV5 "[5] number of times a philosopher must eat\n"
 
 /******************************************************************************\
  * ABOUT THE PROJECT

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lib.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: annabrag <annabrag@student.42.fr>          +#+  +:+       +#+        */
+/*   By: art3mis <art3mis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 22:40:01 by art3mis           #+#    #+#             */
-/*   Updated: 2024/11/08 18:21:51 by annabrag         ###   ########.fr       */
+/*   Updated: 2024/11/12 21:10:22 by art3mis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,65 +36,62 @@ size_t	ft_strlen(const char *str)
 	return (i);
 }
 
-int	ft_atoi(const char *str)
+long	ft_atol(const char *str)
+{
+	long	sign;
+	long	nbr;
+
+	if (str == NULL)
+		return (0);
+	while (*str != '\0' && (*str == 32 || (*str >= 9 && *str <= 13)))
+		str++;
+	sign = 1;
+	if (*str == '-' || *str == '+')
+	{
+		if (*str == '-')
+			sign *= -1;
+		str++;
+	}
+	nbr = 0;
+	while (*str != '\0' && (*str >= 48 && *str <= 57))
+	{
+		nbr = (nbr * 10) + (*str - 48);
+		str++;
+	}
+	return (nbr * sign);
+}
+
+char	*ft_strcat(char *dest, char *src)
 {
 	int	i;
-	int	sign;
-	int	res;
+	int	j;
 
 	i = 0;
-	sign = 1;
-	res = 0;
-	while (str[i] != '\0' && (str[i] == 32 || (str[i] >= 9 && str[i] <= 13)))
+	j = 0;
+	while (dest[i] != '\0')
 		i++;
-	if (str[i] == '-')
+	while (src[j] != '\0')
 	{
-		if (str[i] == '-')
-			sign *= -1;
+		dest[i] = src[j];
+		j++;
 		i++;
 	}
-	while (str[i] != '\0' && (str[i] >= 48 && str[i] <= 57))
-	{
-		res = res * 10 + (str[i] - 48);
-		i++;
-	}
-	return (res * sign);
+	dest[i] = '\0';
+	return (dest);
 }
 
-void	rainbow_txt(const char *str)
+char	*ft_strncat(char *dest, char *src, size_t n)
 {
-	const char	*colors[8] = {RED, ORANGE, YELLOW, GREEN, CYAN, BLUE, PURPLE,
-		PINK};
-	size_t		nb_colors;
-	size_t		i;
-	size_t		len;
+	size_t	i;
+	size_t	dlen;
 
-	nb_colors = sizeof(colors) / sizeof(colors[0]);
 	i = 0;
-	len = ft_strlen(str);
-	while (i < len)
+	dlen = ft_strlen(dest);
+	while (src[i] != '\0' && i < n)
 	{
-		printf("%s%c", colors[i % nb_colors], str[i]);
+		dest[dlen + i] = src[i];
 		i++;
 	}
-	printf("%s\n", RESET);
-}
-
-void	rainbow_txt_nonl(const char *str)
-{
-	const char	*colors[8] = {RED, ORANGE, YELLOW, GREEN, CYAN, BLUE, PURPLE,
-		PINK};
-	size_t		nb_colors;
-	size_t		i;
-	size_t		len;
-
-	nb_colors = sizeof(colors) / sizeof(colors[0]);
-	i = 0;
-	len = ft_strlen(str);
-	while (i < len)
-	{
-		printf("%s%c", colors[i % nb_colors], str[i]);
-		i++;
-	}
-	printf(RESET);
+	dest[dlen + i] = '\0';
+	return (dest);
 }

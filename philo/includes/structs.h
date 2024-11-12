@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: annabrag <annabrag@student.42.fr>          +#+  +:+       +#+        */
+/*   By: art3mis <art3mis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 18:04:22 by annabrag          #+#    #+#             */
-/*   Updated: 2024/11/08 18:51:52 by annabrag         ###   ########.fr       */
+/*   Updated: 2024/11/12 22:17:22 by art3mis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,15 @@
 # include "philo.h"
 
 struct s_data;
+
 typedef struct s_philo
 {
-	pthread_t			thread;
-	int					id;
-	int					died;
-	int					is_eating;
-	int					last_meal;
-	int					meals_count;
-	pthread_mutex_t		*right_fork;
-	pthread_mutex_t		*left_fork;
+	pthread_t			*thread;
+	unsigned int		id;
+	size_t				last_meal_time;
+	unsigned int		meals_eaten;
+	unsigned int		r_fork;
+	unsigned int		l_fork;
 	struct s_data		*data;
 }				t_philo;
 
@@ -36,16 +35,17 @@ typedef struct s_philo
 */
 typedef struct s_data
 {
-	t_philo				*philos;
-	int					nbr_of_philos;
-	size_t				start_time;
+	t_philo				*philo;
+	bool				died;
+	unsigned int		nbr_of_philos;
+	size_t				sim_start;
 	size_t				time_to_die;
 	size_t				time_to_eat;
 	size_t				time_to_sleep;
-	int					nbr_times_each_must_eat;
+	int					nbr_meal_must_eat;
 	pthread_mutex_t		*forks;
 	pthread_mutex_t		write_lock;
-	pthread_mutex_t		dead_lock;
+	pthread_mutex_t		death_lock;
 	pthread_mutex_t		meal_lock;
 }				t_data;
 
