@@ -6,7 +6,7 @@
 /*   By: art3mis <art3mis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 18:19:21 by annabrag          #+#    #+#             */
-/*   Updated: 2024/11/12 22:29:00 by art3mis          ###   ########.fr       */
+/*   Updated: 2024/11/13 01:48:51 by art3mis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,13 @@ bool	args_check_is_successfull(int argc, char **argv)
 {
 	int	i;
 
-	if (argv == NULL)
-		return (false);
 	i = 1;
+	if (argv == NULL || argv[i] == NULL)
+		return (false);
+	if (argc < 5 || argc > 6)
+		get_help_menu();
 	while (i < argc)
 	{
-		if (argv[i] == NULL)
-			return (false);
 		if (__is_only_number(argv[i]) == false)
 			__exit_with_context("Only integers are allowed");
 		i++;
@@ -74,6 +74,7 @@ bool	args_check_is_successfull(int argc, char **argv)
 		__exit_with_context(ERR_TTS);
 	if (argv[5] != NULL && (ft_atol(argv[5]) < 0))
 		__exit_with_context(ERR_MUST_EAT);
-	printf("\n%s\n\n", BOLD BLINK GREEN "Check passed successfully!" RESET);
+	printf("\n%s\n\n\n", BOLD BLINK GREEN "Argument check passed successfully!"\
+	RESET);
 	return (true);
 }

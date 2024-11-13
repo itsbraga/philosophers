@@ -6,7 +6,7 @@
 /*   By: art3mis <art3mis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 20:39:06 by art3mis           #+#    #+#             */
-/*   Updated: 2024/11/12 22:30:31 by art3mis          ###   ########.fr       */
+/*   Updated: 2024/11/13 01:52:23 by art3mis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	rainbow_txt_nonl(const char *str)
 {
 	const char	*colors[8] = {RED, PASTEL_ORANGE, YELLOW, GREEN, CYAN, BLUE, \
-    PURPLE, PINK};
+	PURPLE, PINK};
 	size_t		nb_colors;
 	size_t		i;
 	size_t		len;
@@ -43,27 +43,27 @@ static char *__color_digit(char digit)
 		return ("\e[38;2;255;182;193m4\e[0m");
 	else if (digit == '5')
 		return ("\e[38;2;211;211;255m5\e[0m");
-    return (NULL);
+	return (NULL);
 }
 
 char	*color_if_nbr(const char *str)
 {
-    char    *new_str;
-    char    *colored_digit;
+	char	*new_str;
+	char	*colored_digit;
 
-    new_str = malloc((ft_strlen(str) * 10) + 1);
-    if (new_str == NULL)
-        return (NULL);
-    new_str[0] = '\0';
-    while (*str != '\0')
-    {
-        colored_digit = __color_digit(*str);
-        if (colored_digit != NULL)
-            ft_strcat(new_str, colored_digit);
-        else
-            ft_strncat(new_str, (char *)str, 1);
-        str++;
-    }
+	new_str = malloc((ft_strlen(str) * 10) + 1);
+	if (new_str == NULL)
+		return (NULL);
+	new_str[0] = '\0';
+	while (*str != '\0')
+	{
+		colored_digit = __color_digit(*str);
+		if (colored_digit != NULL)
+			ft_strcat(new_str, colored_digit);
+		else
+			ft_strncat(new_str, (char *)str, 1);
+		str++;
+	}
 	return (new_str);
 }
 
@@ -85,5 +85,5 @@ int	get_help_menu(void)
 	err_msg(ERR_ARG);
 	write(2, "\n", 2);
 	walkthrough();
-	return (FAILURE);
+	exit (FAILURE);
 }

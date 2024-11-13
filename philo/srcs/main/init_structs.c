@@ -6,7 +6,7 @@
 /*   By: art3mis <art3mis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 18:37:23 by art3mis           #+#    #+#             */
-/*   Updated: 2024/11/12 23:07:26 by art3mis          ###   ########.fr       */
+/*   Updated: 2024/11/13 01:43:25 by art3mis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 static int	__init_data(t_data *data, char **argv)
 {
+	if (init_data_mutexes(data) == FAILURE)
+		return (FAILURE);
 	data->sim_start = get_current_timestamp();
 	data->nbr_of_philos = ft_atol(argv[1]);
 	data->time_to_die = ft_atol(argv[2]);
@@ -24,8 +26,6 @@ static int	__init_data(t_data *data, char **argv)
 	else
 		data->nbr_meal_must_eat = -1;
 	data->died = false;
-	if (init_data_mutexes(data) == FAILURE)
-		return (FAILURE);
 	return (SUCCESS);
 }
 
@@ -70,9 +70,11 @@ static int	__init_philos(t_data *data)
 	return (SUCCESS);
 }
 
-int	init_structs(t_data *data, char **argv)
+int	init_structs(char **argv)
 {
-	ft_bzero(data, sizeof(t_data));
+	t_data	*data;
+
+	data = data_struct();
 	if (__init_data(data, argv) == FAILURE)
 		return (err_msg(ERR_INIT_DATA), FAILURE);
 	if (__init_forks(data) == FAILURE)

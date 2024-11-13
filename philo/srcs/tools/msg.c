@@ -6,7 +6,7 @@
 /*   By: art3mis <art3mis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 23:46:13 by art3mis           #+#    #+#             */
-/*   Updated: 2024/11/12 22:06:58 by art3mis          ###   ########.fr       */
+/*   Updated: 2024/11/13 01:45:51 by art3mis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,19 @@
 
 void	status_msg(t_philo *aristote, char *str)
 {
+	const char	*colors[8] = {RED, PASTEL_ORANGE, YELLOW, GREEN, BLUE, \
+	PURPLE, PASTEL_PURPLE, PINK};
+	const char	*color;
 	size_t	timestamp;
 
-	if (aristote->data->died == true)
-		return ;
 	pthread_mutex_lock(&aristote->data->write_lock);
 	timestamp = get_current_timestamp() - aristote->data->sim_start;
+	color = colors[aristote->id % (sizeof(colors) / sizeof(colors[0]))];
 	if (aristote->data->died == false)
-		printf("%zu\t-  Philo %d %s\n", timestamp, aristote->id, str);
+	{
+		printf("%zu  ⏱️  %sPhilo %d%s %s\n", timestamp, color, \
+		aristote->id, RESET, str);
+	}
 	pthread_mutex_unlock(&aristote->data->write_lock);
 }
 
@@ -31,7 +36,8 @@ void	death_announcement(t_philo *rousseau, int i)
 
 	pthread_mutex_lock(&rousseau->data->write_lock);
 	timestamp = get_current_timestamp() - rousseau->data->sim_start;
-	printf("%zu\t-\tPhilo %d died\n", timestamp, rousseau[i].id);
+	printf("%zu  ⏱️  %sPhilo %d died --RIP--%s%s", timestamp, LIGHT_GRAY2, \
+	rousseau[i].id, DEATH, RESET);
 	pthread_mutex_unlock(&rousseau->data->write_lock);
 }
 

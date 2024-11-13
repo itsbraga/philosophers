@@ -6,7 +6,7 @@
 /*   By: art3mis <art3mis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 15:09:39 by art3mis           #+#    #+#             */
-/*   Updated: 2024/11/12 22:46:10 by art3mis          ###   ########.fr       */
+/*   Updated: 2024/11/13 01:43:11 by art3mis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,45 +23,38 @@ int	init_data_mutexes(t_data *data)
 	return (SUCCESS);
 }
 
-static int  __join_threads(t_philo *confucius, t_data *data)
-{
-    unsigned int i;
-
-    i = 0;
-	while (i < data->nbr_of_philos)
-	{
-		if (pthread_join(confucius->thread[i], NULL) != 0)
-		{
-			free(confucius->thread);
-            return (err_msg(ERR_THREAD_JOIN), FAILURE);
-		}
-		i++;
-	}
-    return (SUCCESS);
-}
-
-int manage_threads(t_philo *confucius, t_data *data)
+int manage_threads(t_philo *locke)
 {
 	unsigned int	i;
 
-	confucius->thread = malloc(sizeof(pthread_t) * data->nbr_of_philos);
-	if (confucius->thread == NULL)
-		return (FAILURE);
+	locke->thread = malloc(sizeof(pthread_t) * data_struct()->nbr_of_philos);
+	if (locke->thread == NULL)
+		return (err_msg(ERR_MALLOC), FAILURE);
 	i = 0;
-	while (i < data->nbr_of_philos)
+	while (i < data_struct()->nbr_of_philos)
 	{
-		if (pthread_create(&confucius->thread[i], NULL, &routine, \
-				(void *)&confucius[i]) != 0)
+		if (pthread_create(&locke->thread[i], NULL, &routine, \
+			(void *)&locke[i]) != 0)
 		{
-			free(confucius->thread);
-            return (err_msg(ERR_THREAD_CREA), FAILURE);
+			while (i > 0)
+			{
+				i--;
+				pthread_join(locke->thread[i], NULL);
+			}
+			free(locke->thread);
+			return (err_msg(ERR_THREAD_CREA), FAILURE);
 		}
 		i++;
 	}
-	supervisor(data);
-    if (__join_threads(confucius, data) == FAILURE)
-        return (FAILURE);
-    return (SUCCESS);
+	supervisor(data_struct());
+	i = 0;
+	while (i < data_struct()->nbr_of_philos)
+	{
+		if (pthread_join(locke->thread[i], NULL) != 0)
+			return (err_msg(ERR_THREAD_JOIN), FAILURE);
+		i++;
+	}
+	return (SUCCESS);
 }
 
 void	destroy_mutexes(t_data *data)

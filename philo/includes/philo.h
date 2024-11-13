@@ -6,7 +6,7 @@
 /*   By: art3mis <art3mis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 18:18:10 by annabrag          #+#    #+#             */
-/*   Updated: 2024/11/12 22:26:00 by art3mis          ###   ########.fr       */
+/*   Updated: 2024/11/13 01:43:46 by art3mis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,10 @@
 bool	args_check_is_successfull(int argc, char **argv);
 
 // init_structs.c
-int		init_structs(t_data *data, char **argv);
+int		init_structs(char **argv);
+
+// main.c
+t_data	*data_struct(void);
 
 /******************************************************************************\
  * THREADS
@@ -43,11 +46,11 @@ void	*routine(void *philo);
 
 // threads.c
 int		init_data_mutexes(t_data *data);
-int		manage_threads(t_philo *confucius, t_data *data);
+int		manage_threads(t_philo *locke);
 void	destroy_mutexes(t_data *data);
 
 // supervisor.c
-bool	check_if_someone_died(t_philo *locke);
+bool	check_if_someone_died(t_philo *confucius);
 void	supervisor(t_data *data);
 
 /******************************************************************************\

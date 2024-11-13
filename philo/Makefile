@@ -2,17 +2,16 @@
 #	TEXT CUSTOM
 #******************************************************************************#
 
-RESET		:=	\e[0m
-BOLD		:=	\e[1m
-ITAL		:=	\e[3m
-BLINK		:=	\e[5m
+RESET			:=	\e[0m
+BOLD			:=	\e[1m
+ITAL			:=	\e[3m
+BLINK			:=	\e[5m
 
-ORANGE		:=	\e[38;5;208m
-YELLOW		:=	\e[38;2;255;234;150m
-GREEN		:=	\e[32m
-BLUE		:=	\e[34m
-CYAN		:=	\e[36m
-PURPLE		:=	\e[38;2;211;211;255m
+YELLOW			:=	\e[38;2;255;234;150m
+BLUE			:=	\e[34m
+CYAN			:=	\e[36m
+PURPLE			:=	\e[38;2;211;211;255m
+PASTEL_PURPLE	:=	\e[38;2;211;211;255m
 
 #******************************************************************************#
 #	BASICS
@@ -71,11 +70,11 @@ $(OBJS_DIR)%.o: $(SRCS_DIR)%.c
 -include $(DEPS_F)
 
 $(NAME): $(OBJS_F)
-			@printf "$(RESET)$(BOLD)\n\n=================$(shell bash rainbow.sh " PHILOSOPHERS ")"
-			@printf "$(BOLD)=================\n\n"
-			@printf "\t $(ORANGE)[Mandatory]$(RESET): "
+			@printf "$(RESET)$(BOLD)\n\n=================[ $(shell bash rainbow.sh "PHILOSOPHERS")"
+			@printf "$(BOLD) ]===================\n\n"
+			@printf "\t $(PASTEL_PURPLE)Mandatory$(RESET): "
 			@printf "$(RESET)Compilation done!\n\n"
-			@printf "$(BOLD)================================================\n\n$(RESET)"
+			@printf "$(BOLD)====================================================\n\n$(RESET)"
 			@$(CC) $(DEBUG) $(CFLAGS) $(INC) $(OBJS_F) -o $(NAME)
 
 clean:

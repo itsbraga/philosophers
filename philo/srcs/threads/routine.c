@@ -6,7 +6,7 @@
 /*   By: art3mis <art3mis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 18:20:45 by annabrag          #+#    #+#             */
-/*   Updated: 2024/11/12 22:46:32 by art3mis          ###   ########.fr       */
+/*   Updated: 2024/11/13 00:38:27 by art3mis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,20 @@
 
 static void	__take_forks(t_philo *voltaire)
 {
-	pthread_mutex_lock(&voltaire->data->forks[voltaire->l_fork]);
-	status_msg(voltaire, "has taken a fork (left)");
-	if (voltaire->data->nbr_of_philos == 1)
+	if (voltaire->id % 2 == 0)
 	{
-		pthread_mutex_unlock(&voltaire->data->forks[voltaire->l_fork]);
-		return ;
+		pthread_mutex_lock(&voltaire->data->forks[voltaire->r_fork]);
+		status_msg(voltaire, "has taken a fork \e[3m(right)\e[0m");
+		pthread_mutex_lock(&voltaire->data->forks[voltaire->l_fork]);
+		status_msg(voltaire, "has taken a fork \e[3m(left)\e[0m");
 	}
-	pthread_mutex_lock(&voltaire->data->forks[voltaire->r_fork]);
-	status_msg(voltaire, "has taken a fork (right)");
+	else
+	{
+		pthread_mutex_lock(&voltaire->data->forks[voltaire->l_fork]);
+		status_msg(voltaire, "has taken a fork \e[3m(left)\e[0m");
+		pthread_mutex_lock(&voltaire->data->forks[voltaire->r_fork]);
+		status_msg(voltaire, "has taken a fork \e[3m(right)\e[0m");
+	}
 }
 
 static void	__drop_forks(t_philo *descartes)
@@ -38,15 +43,9 @@ static void	__eat(t_philo *nietzsche)
 	status_msg(nietzsche, "is eating");
 	nietzsche->last_meal_time = get_current_timestamp();
 	nietzsche->meals_eaten++;
-	ft_usleep(nietzsche->data->time_to_eat, nietzsche->data);
 	pthread_mutex_unlock(&nietzsche->data->meal_lock);
+	ft_usleep(nietzsche->data->time_to_eat, nietzsche->data);
 	__drop_forks(nietzsche);
-}
-
-static void	__asleep(t_philo *socrate)
-{
-	status_msg(socrate, "is sleeping");
-	ft_usleep(socrate->data->time_to_sleep, socrate->data);
 }
 
 void	*routine(void *philo)
@@ -56,16 +55,17 @@ void	*routine(void *philo)
 	platon = (t_philo *)philo;
 	if (platon->id % 2 == 0)
 	{
-		status_msg(platon, "is thinking");
-		ft_usleep(200, platon->data); // changer valeur random
+		status_msg(platon, "is thinking...");
+		ft_usleep(1, platon->data);
 	}
-	while (1)
+	while (check_if_someone_died(platon) == false)
 	{
+		__eat(platon);
 		if (check_if_someone_died(platon) == true)
 			break ;
-		__eat(platon);
-		__asleep(platon);
-		status_msg(platon, "is thinking");
+		status_msg(platon, "is sleeping 🧸");
+		ft_usleep(platon->data->time_to_sleep, platon->data);
+		status_msg(platon, "is thinking...");
 	}
 	return (NULL);
 }
