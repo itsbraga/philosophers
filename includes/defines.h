@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   defines.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: art3mis <art3mis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: annabrag <annabrag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 18:18:59 by annabrag          #+#    #+#             */
-/*   Updated: 2024/11/13 12:41:34 by art3mis          ###   ########.fr       */
+/*   Updated: 2024/11/13 21:07:29 by annabrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@
 # define ERR_PREFIX "\e[31m\e[1merror: \e[0m"
 
 # define ERR_MALLOC "Memory allocation failed"
-# define ERR_THREAD_CREA "Thread creation failed"
-# define ERR_THREAD_JOIN "Thread join failed"
+# define ERR_THREAD_CREA "Failed to create a thread"
+# define ERR_THREAD_JOIN "Failed to join threads"
 
 # define ERR_INIT_DATA "Failed to initialize from your parameters"
 # define ERR_INIT_FORK "Something went wrong with fork initialization"
@@ -49,8 +49,8 @@
 # define SEPARATOR_1 "========================[ "
 # define TITLE "WALKTHROUGH"
 # define SEPARATOR_2 " ]========================\n\n"
-# define FOOTER "==================================================\
-=============="
+# define FOOTER "==============================================================\
+=="
 # define ARGV1 "[1] amount of philosophers\n"
 # define ARGV2 "[2] time a philosopher will die if he doesn't eat\n"
 # define ARGV3 "[3] time it takes a philosopher to eat\n"

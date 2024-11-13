@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_args.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: art3mis <art3mis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: annabrag <annabrag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 18:19:21 by annabrag          #+#    #+#             */
-/*   Updated: 2024/11/13 12:24:56 by art3mis          ###   ########.fr       */
+/*   Updated: 2024/11/13 20:12:51 by annabrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ bool	args_check_is_successfull(int argc, char **argv)
 		__exit_with_context(ERR_TTE);
 	if (ft_atol(argv[4]) <= 0)
 		__exit_with_context(ERR_TTS);
-	if (argv[5] != NULL && (ft_atol(argv[5]) < 0))
+	if (argv[5] != NULL && (ft_atol(argv[5]) <= 0))
 		__exit_with_context(ERR_MUST_EAT);
 	printf("\n%s\n\n\n", BOLD BLINK GREEN ARG_CHECK RESET);
 	return (true);

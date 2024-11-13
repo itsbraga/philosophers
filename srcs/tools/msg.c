@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msg.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: art3mis <art3mis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: annabrag <annabrag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 23:46:13 by art3mis           #+#    #+#             */
-/*   Updated: 2024/11/13 12:48:41 by art3mis          ###   ########.fr       */
+/*   Updated: 2024/11/13 20:57:47 by annabrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ void	status_msg(t_philo *aristote, char *str)
 	pthread_mutex_lock(&aristote->data->write_lock);
 	timestamp = get_current_timestamp() - aristote->data->sim_start;
 	color = colors[aristote->id % (sizeof(colors) / sizeof(colors[0]))];
+	pthread_mutex_lock(&aristote->data->death_lock);
 	if (aristote->data->died == false)
-	{
 		printf("%zu  ⏱️  %sPhilo %d%s %s\n", timestamp, color, \
 		aristote->id, RESET, str);
-	}
+	pthread_mutex_unlock(&aristote->data->death_lock);
 	pthread_mutex_unlock(&aristote->data->write_lock);
 }
 

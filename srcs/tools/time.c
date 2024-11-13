@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: art3mis <art3mis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: annabrag <annabrag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 19:41:18 by art3mis           #+#    #+#             */
-/*   Updated: 2024/11/13 00:11:53 by art3mis          ###   ########.fr       */
+/*   Updated: 2024/11/13 20:57:35 by annabrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,6 @@ void	ft_usleep(size_t msec, t_data *data)
 
 	start = get_current_timestamp();
 	is_dead = check_if_someone_died(data->philo);
-	while ((get_current_timestamp() - start) < msec && is_dead == false)
+	while ((get_current_timestamp() - start < msec) && is_dead == false)
 		usleep(1000);
 }

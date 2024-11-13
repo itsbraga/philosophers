@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   supervisor.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: art3mis <art3mis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: annabrag <annabrag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 17:37:09 by art3mis           #+#    #+#             */
-/*   Updated: 2024/11/13 00:57:56 by art3mis          ###   ########.fr       */
+/*   Updated: 2024/11/13 20:41:31 by annabrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,23 +35,23 @@ static void	__someone_died(t_data *data, int i)
 static bool	__check_if_all_ate(t_data *data)
 {
 	unsigned int	i;
-	unsigned int	count;
 
 	if (data->nbr_meal_must_eat == -1)
 		return (false);
 	i = 0;
-	count = 0;
 	pthread_mutex_lock(&data->meal_lock);
 	while (i < data->nbr_of_philos)
 	{
 		if ((int)data->philo[i].meals_eaten >= data->nbr_meal_must_eat)
-			count++;
-		i++;
+			i++;
+		else
+		{
+			pthread_mutex_unlock(&data->meal_lock);
+			return (false);
+		}
 	}
 	pthread_mutex_unlock(&data->meal_lock);
-	if (count == data->nbr_of_philos)
-		return (true);
-	return (false);
+	return (true);
 }
 
 void	supervisor(t_data *data)
@@ -68,17 +68,16 @@ void	supervisor(t_data *data)
 			curr_time = get_current_timestamp();
 			if (curr_time - data->philo[i].last_meal_time >= data->time_to_die)
 			{
+				// dprintf(2, "actual time: %zu\n", curr_time);
+				// dprintf(2, "last meal: %zu\n", data->philo[i].last_meal_time);
+				// dprintf(2, "time to die: %zu\n", data->time_to_die);
 				pthread_mutex_unlock(&data->meal_lock);
 				return (__someone_died(data, i));
 			}
-			if (__check_if_all_ate(data) == true)
-			{
-				pthread_mutex_unlock(&data->meal_lock);
-				return ;
-			}
 			pthread_mutex_unlock(&data->meal_lock);
+			if (__check_if_all_ate(data) == true)
+				return ;
 			i++;
 		}
-		ft_usleep(1, data);
 	}
 }

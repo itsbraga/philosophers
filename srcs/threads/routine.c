@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: art3mis <art3mis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: annabrag <annabrag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 18:20:45 by annabrag          #+#    #+#             */
-/*   Updated: 2024/11/13 14:24:28 by art3mis          ###   ########.fr       */
+/*   Updated: 2024/11/13 21:05:53 by annabrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ static void	__take_forks(t_philo *voltaire)
 
 static void	__drop_forks(t_philo *descartes)
 {
-	pthread_mutex_unlock(&descartes->data->forks[descartes->r_fork]);
 	pthread_mutex_unlock(&descartes->data->forks[descartes->l_fork]);
+	pthread_mutex_unlock(&descartes->data->forks[descartes->r_fork]);
 }
 
 static void	__eat(t_philo *nietzsche)
@@ -53,15 +53,8 @@ void	*routine(void *philo)
 	t_philo	*platon;
 
 	platon = (t_philo *)philo;
-	// if (data_struct()->nbr_of_philos == 1)
-	// {
-		
-	// }
 	if (platon->id % 2 == 0)
-	{
-		status_msg(platon, "is thinking...");
 		ft_usleep(1, platon->data);
-	}
 	while (check_if_someone_died(platon) == false)
 	{
 		__eat(platon);
