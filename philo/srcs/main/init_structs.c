@@ -6,11 +6,18 @@
 /*   By: art3mis <art3mis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 18:37:23 by art3mis           #+#    #+#             */
-/*   Updated: 2024/11/13 01:43:25 by art3mis          ###   ########.fr       */
+/*   Updated: 2024/11/13 12:12:31 by art3mis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+t_data	*data_struct(void)
+{
+	static t_data	instance;
+
+	return (&instance);
+}
 
 static int	__init_data(t_data *data, char **argv)
 {

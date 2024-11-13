@@ -6,7 +6,7 @@
 /*   By: art3mis <art3mis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 18:20:45 by annabrag          #+#    #+#             */
-/*   Updated: 2024/11/13 00:38:27 by art3mis          ###   ########.fr       */
+/*   Updated: 2024/11/13 14:24:28 by art3mis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,10 @@ void	*routine(void *philo)
 	t_philo	*platon;
 
 	platon = (t_philo *)philo;
+	// if (data_struct()->nbr_of_philos == 1)
+	// {
+		
+	// }
 	if (platon->id % 2 == 0)
 	{
 		status_msg(platon, "is thinking...");

@@ -6,7 +6,7 @@
 /*   By: art3mis <art3mis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 20:39:06 by art3mis           #+#    #+#             */
-/*   Updated: 2024/11/13 01:52:23 by art3mis          ###   ########.fr       */
+/*   Updated: 2024/11/13 12:20:09 by art3mis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,13 +71,13 @@ void	walkthrough(void)
 {
 	printf(BOLD SEPARATOR_1);
 	rainbow_txt_nonl(TITLE);
-	printf("%s\n\t%s\n", SEPARATOR_2, \
+	printf("%s\n\t%s\n", SEPARATOR_2, 
 	color_if_nbr("./philo argv[1] argv[2] argv[3] argv[4]"));
-	printf("\n\t\t\t   %s\n\n\t%s\n", RESET "or", \
+	printf("\n\t\t\t   %s\n\n\t%s\n", RESET "or", 
 	color_if_nbr("./philo argv[1] argv[2] argv[3] argv[4] argv[5]"));
-	printf("\n\n%s%s%s%s%s", color_if_nbr(ARGV1), color_if_nbr(ARGV2), \
-	color_if_nbr(ARGV3), color_if_nbr(ARGV4), color_if_nbr(ARGV5));
-	printf("\n%s\n", FOOTER);
+	printf("\n\n%s%s%s%s", color_if_nbr(ARGV1), color_if_nbr(ARGV2),
+	color_if_nbr(ARGV3), color_if_nbr(ARGV4));
+	printf("%s%s\n%s\n", OPTIONAL, color_if_nbr(ARGV5), FOOTER);
 }
 
 int	get_help_menu(void)

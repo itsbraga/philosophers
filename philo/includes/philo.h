@@ -6,7 +6,7 @@
 /*   By: art3mis <art3mis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 18:18:10 by annabrag          #+#    #+#             */
-/*   Updated: 2024/11/13 01:43:46 by art3mis          ###   ########.fr       */
+/*   Updated: 2024/11/13 12:13:11 by art3mis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,8 @@
 bool	args_check_is_successfull(int argc, char **argv);
 
 // init_structs.c
-int		init_structs(char **argv);
-
-// main.c
 t_data	*data_struct(void);
+int		init_structs(char **argv);
 
 /******************************************************************************\
  * THREADS

@@ -73,7 +73,7 @@ $(NAME): $(OBJS_F)
 			@printf "$(RESET)$(BOLD)\n\n=================[ $(shell bash rainbow.sh "PHILOSOPHERS")"
 			@printf "$(BOLD) ]===================\n\n"
 			@printf "\t $(PASTEL_PURPLE)Mandatory$(RESET): "
-			@printf "$(RESET)Compilation done!\n\n"
+			@printf "$(RESET)$(BLINK)Compilation done!\n\n$(RESET)"
 			@printf "$(BOLD)====================================================\n\n$(RESET)"
 			@$(CC) $(DEBUG) $(CFLAGS) $(INC) $(OBJS_F) -o $(NAME)
 

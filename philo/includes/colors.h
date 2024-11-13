@@ -6,7 +6,7 @@
 /*   By: art3mis <art3mis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 18:10:24 by annabrag          #+#    #+#             */
-/*   Updated: 2024/11/12 20:15:54 by art3mis          ###   ########.fr       */
+/*   Updated: 2024/11/13 12:47:45 by art3mis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@
 # define BLINK          "\e[5m"
 
 # define GRAY			"\e[90m"
+# define GUNMETAL	    "\e[38;2;129;133;137m"
+# define SILVER         "\e[38;2;192;192;192m"
+# define LIGHT_GRAY 	"\e[38;2;211;211;211m"
 # define RED			"\e[31m"
 # define GREEN			"\e[32m"
 # define YELLOW			"\e[38;2;255;234;150m"
@@ -30,9 +33,6 @@
 # define PINK			"\e[38;2;255;182;193m"
 # define CYAN			"\e[36m"
 # define WHITE			"\e[37m"
-
-# define LIGHT_GRAY		"\e[38;2;173;165;165m"
-# define LIGHT_GRAY2	"\e[38;2;211;211;211m"
 
 // Pastel colors
 # define PASTEL_GREEN	"\e[38;2;173;235;179m"

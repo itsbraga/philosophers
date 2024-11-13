@@ -6,7 +6,7 @@
 /*   By: art3mis <art3mis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 23:46:13 by art3mis           #+#    #+#             */
-/*   Updated: 2024/11/13 01:45:51 by art3mis          ###   ########.fr       */
+/*   Updated: 2024/11/13 12:48:41 by art3mis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ void	death_announcement(t_philo *rousseau, int i)
 
 	pthread_mutex_lock(&rousseau->data->write_lock);
 	timestamp = get_current_timestamp() - rousseau->data->sim_start;
-	printf("%zu  ⏱️  %sPhilo %d died --RIP--%s%s", timestamp, LIGHT_GRAY2, \
-	rousseau[i].id, DEATH, RESET);
+	printf("%zu  ⏱️  %sPhilo %d died%s%s", timestamp, GUNMETAL, \
+	rousseau[i].id, SILVER DEATH, RESET);
 	pthread_mutex_unlock(&rousseau->data->write_lock);
 }
 

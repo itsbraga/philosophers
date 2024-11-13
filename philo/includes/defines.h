@@ -6,7 +6,7 @@
 /*   By: art3mis <art3mis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 18:18:59 by annabrag          #+#    #+#             */
-/*   Updated: 2024/11/13 01:52:36 by art3mis          ###   ########.fr       */
+/*   Updated: 2024/11/13 12:41:34 by art3mis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,17 +49,20 @@
 # define SEPARATOR_1 "========================[ "
 # define TITLE "WALKTHROUGH"
 # define SEPARATOR_2 " ]========================\n\n"
-# define FOOTER "=================================================\
+# define FOOTER "==================================================\
 =============="
 # define ARGV1 "[1] amount of philosophers\n"
 # define ARGV2 "[2] time a philosopher will die if he doesn't eat\n"
 # define ARGV3 "[3] time it takes a philosopher to eat\n"
 # define ARGV4 "[4] time it takes a philosopher to sleep\n"
+# define OPTIONAL "\n\e[38;2;152;168;105moptional\n\e[0m"
 # define ARGV5 "[5] number of times a philosopher must eat\n"
 
 /******************************************************************************\
  * CUSTOM
 \******************************************************************************/
+
+# define ARG_CHECK "==[ Argument check passed successfully ]=="
 
 # define DEATH "\n\n\
                ...\n\
