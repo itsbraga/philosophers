@@ -22,7 +22,6 @@ NAME		=	philo
 CC			=	cc
 INC			=	includes/
 
-
 CFLAGS		=	-Wall -Wextra -Werror -pthread -I
 DEPFLAGS	=	-MMD -MP
 MAKEFLAGS	+=	--no-print-directory

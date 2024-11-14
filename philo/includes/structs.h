@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: art3mis <art3mis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: annabrag <annabrag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 18:04:22 by annabrag          #+#    #+#             */
-/*   Updated: 2024/11/12 22:17:22 by art3mis          ###   ########.fr       */
+/*   Updated: 2024/11/14 20:48:38 by annabrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,13 @@ typedef struct s_data
 	size_t				time_to_die;
 	size_t				time_to_eat;
 	size_t				time_to_sleep;
+	unsigned int		full;
 	int					nbr_meal_must_eat;
 	pthread_mutex_t		*forks;
 	pthread_mutex_t		write_lock;
 	pthread_mutex_t		death_lock;
 	pthread_mutex_t		meal_lock;
+	pthread_mutex_t		full_lock;
 }				t_data;
 
 #endif

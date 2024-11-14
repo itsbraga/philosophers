@@ -6,7 +6,7 @@
 /*   By: annabrag <annabrag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 17:37:09 by art3mis           #+#    #+#             */
-/*   Updated: 2024/11/13 23:29:43 by annabrag         ###   ########.fr       */
+/*   Updated: 2024/11/14 20:48:10 by annabrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,47 +32,24 @@ static void	__someone_died(t_data *data, int i)
 	death_announcement(data->philo, i);
 }
 
-// static bool	__check_if_all_ate(t_data *data)
-// {
-// 	unsigned int	i;
-//
-// 	if (data->nbr_meal_must_eat == -1)
-// 		return (false);
-// 	i = 0;
-// 	pthread_mutex_lock(&data->meal_lock);
-// 	while (i < data->nbr_of_philos)
-// 	{
-// 		if (data->nbr_of_philos == data->philo_full)
-// 			data->died = true;
-// 		else
-// 		{
-// 			pthread_mutex_unlock(&data->meal_lock);
-// 			return (false);
-// 		}
-// 	}
-// 	pthread_mutex_unlock(&data->meal_lock);
-// 	return (true);
-// }
-
 static bool	__check_if_all_ate(t_data *data)
 {
 	unsigned int	i;
-	unsigned int	count;
 
 	if (data->nbr_meal_must_eat == -1)
 		return (false);
 	i = 0;
-	count = 0;
 	pthread_mutex_lock(&data->meal_lock);
-	while (i < data->nbr_of_philos)
+	pthread_mutex_lock(&data->full_lock);
+	if (data->full == data->nbr_of_philos)
 	{
-		if ((int)data->philo[i].meals_eaten >= data->nbr_meal_must_eat)
-			count++;
-		i++;
+		// printf("jaitrop bouffer %d nb de philo %d\n", data->full, data->nbr_of_philos);
+		pthread_mutex_unlock(&data->meal_lock);
+		pthread_mutex_unlock(&data->full_lock);
+		return (true);
 	}
 	pthread_mutex_unlock(&data->meal_lock);
-	if (count == data->nbr_of_philos)
-		return (true);
+	pthread_mutex_unlock(&data->full_lock);
 	return (false);
 }
 
@@ -90,9 +67,6 @@ void	supervisor(t_data *data)
 			curr_time = get_current_timestamp();
 			if (curr_time - data->philo[i].last_meal_time >= data->time_to_die)
 			{
-				// dprintf(2, "actual time: %zu\n", curr_time);
-				// dprintf(2, "last meal: %zu\n", data->philo[i].last_meal_time);
-				// dprintf(2, "time to die: %zu\n", data->time_to_die);
 				pthread_mutex_unlock(&data->meal_lock);
 				__someone_died(data, i);
 				return ;
@@ -103,7 +77,6 @@ void	supervisor(t_data *data)
 				pthread_mutex_lock(&data->death_lock);
 				data->died = true;
 				pthread_mutex_unlock(&data->death_lock);
-				// stop simulation/routine
 				return ;
 			}
 			i++;

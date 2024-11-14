@@ -6,7 +6,7 @@
 /*   By: annabrag <annabrag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 19:41:18 by art3mis           #+#    #+#             */
-/*   Updated: 2024/11/13 21:34:09 by annabrag         ###   ########.fr       */
+/*   Updated: 2024/11/14 20:34:22 by annabrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,5 @@ void	ft_usleep(size_t msec, t_data *data)
 	start = get_current_timestamp();
 	is_dead = check_if_someone_died(data->philo);
 	while ((get_current_timestamp() - start < msec) && is_dead == false)
-		usleep(1000);
+		usleep(500);
 }

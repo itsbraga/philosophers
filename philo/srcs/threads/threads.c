@@ -6,7 +6,7 @@
 /*   By: annabrag <annabrag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 15:09:39 by art3mis           #+#    #+#             */
-/*   Updated: 2024/11/13 21:46:49 by annabrag         ###   ########.fr       */
+/*   Updated: 2024/11/14 19:44:47 by annabrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int	init_data_mutexes(t_data *data)
 	if (pthread_mutex_init(&data->death_lock, NULL) != 0)
 		return (FAILURE);
 	if (pthread_mutex_init(&data->meal_lock, NULL) != 0)
+		return (FAILURE);
+	if (pthread_mutex_init(&data->full_lock, NULL) != 0)
 		return (FAILURE);
 	return (SUCCESS);
 }

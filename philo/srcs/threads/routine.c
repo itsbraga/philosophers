@@ -6,7 +6,7 @@
 /*   By: annabrag <annabrag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 18:20:45 by annabrag          #+#    #+#             */
-/*   Updated: 2024/11/13 23:21:50 by annabrag         ###   ########.fr       */
+/*   Updated: 2024/11/14 20:56:11 by annabrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,34 +43,47 @@ static void	__eat(t_philo *nietzsche)
 	status_msg(nietzsche, "is eating");
 	nietzsche->last_meal_time = get_current_timestamp();
 	nietzsche->meals_eaten++;
-	// if (nietzsche->meals_eaten == data_struct()->nbr_meal_must_eat)
-	// {
-	// 	data_struct()->philo_full++;
-	// }
+	if ((int)nietzsche->meals_eaten == data_struct()->nbr_meal_must_eat)
+	{
+		// printf(" nbr_meal_must_eat %d full %d\n", data_struct()->nbr_meal_must_eat, data_struct()->full);
+		pthread_mutex_lock(&data_struct()->full_lock);
+		data_struct()->full++;
+		pthread_mutex_unlock(&data_struct()->full_lock);
+	}
 	pthread_mutex_unlock(&nietzsche->data->meal_lock);
 	ft_usleep(nietzsche->data->time_to_eat, nietzsche->data);
-	// printf("tteat = %zu\n", nietzsche->data->time_to_eat);
 	__drop_forks(nietzsche);
+}
+
+static void	__sleep(t_philo *socrate)
+{
+	status_msg(socrate, "is sleeping");
+	ft_usleep(socrate->data->time_to_sleep, socrate->data);
 }
 
 void	*routine(void *philo)
 {
 	t_philo	*platon;
+	// size_t	diff_time;
 
 	platon = (t_philo *)philo;
+	// diff_time = (data_struct()->time_to_eat - data_struct()->time_to_sleep);
 	// printf("%d | start = %zu\n", platon->id, platon->last_meal_time);
 	if (data_struct()->nbr_of_philos == 1)
 		philone(platon);
 	if (platon->id % 2 == 0)
-		ft_usleep(1, platon->data);
+		ft_usleep(1, data_struct());
 	while (check_if_someone_died(platon) == false)
 	{
 		__eat(platon);
+		if (data_struct()->nbr_of_philos % 2 == 0)
+			usleep(200);
+			// ft_usleep(15, data_struct());
 		if (check_if_someone_died(platon) == true)
 			break ;
-		status_msg(platon, "is sleeping");
-		ft_usleep(platon->data->time_to_sleep, platon->data);
-		// printf("ttsleep = %zu\n", platon->data->time_to_sleep);
+		__sleep(platon);
+		// if (data_struct()->time_to_sleep < data_struct()->time_to_eat)
+		// 	ft_usleep(diff_time + 50, data_struct());
 		status_msg(platon, "is thinking");
 	}
 	return (NULL);

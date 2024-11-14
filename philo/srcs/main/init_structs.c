@@ -6,7 +6,7 @@
 /*   By: annabrag <annabrag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 18:37:23 by art3mis           #+#    #+#             */
-/*   Updated: 2024/11/13 21:26:11 by annabrag         ###   ########.fr       */
+/*   Updated: 2024/11/14 19:45:04 by annabrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ static int	__init_data(t_data *data, char **argv)
 	data->time_to_die = ft_atol(argv[2]);
 	data->time_to_eat = ft_atol(argv[3]);
 	data->time_to_sleep = ft_atol(argv[4]);
+	data->full = 0;
 	if (argv[5] != NULL)
 		data->nbr_meal_must_eat = ft_atol(argv[5]);
 	else
