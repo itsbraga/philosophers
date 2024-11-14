@@ -6,7 +6,7 @@
 /*   By: annabrag <annabrag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 18:18:10 by annabrag          #+#    #+#             */
-/*   Updated: 2024/11/15 00:13:02 by annabrag         ###   ########.fr       */
+/*   Updated: 2024/11/14 23:39:28 by annabrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,17 @@ void	supervisor(t_data *data);
  * TOOLS
 \******************************************************************************/
 
+// custom.c
+void	rainbow_txt_nonl(const char *str);
+char	*color_if_nbr(const char *str);
+int		get_help_menu(void);
+
 // lib.c
 void	ft_bzero(void *s, size_t n);
 size_t	ft_strlen(const char *str);
 long	ft_atol(const char *str);
+char	*ft_strcat(char *dest, char *src);
+char	*ft_strncat(char *dest, char *src, size_t n);
 
 // msg.c
 void	status_msg(t_philo *aristote, char *str);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   custom.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: art3mis <art3mis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: annabrag <annabrag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 20:39:06 by art3mis           #+#    #+#             */
-/*   Updated: 2024/11/13 12:20:09 by art3mis          ###   ########.fr       */
+/*   Updated: 2024/11/15 00:03:58 by annabrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	rainbow_txt_nonl(const char *str)
 	printf(RESET);
 }
 
-static char *__color_digit(char digit)
+static char	*__color_digit(char digit)
 {
 	if (digit == '1')
 		return ("\e[38;2;152;168;105m1\e[0m");
@@ -71,11 +71,11 @@ void	walkthrough(void)
 {
 	printf(BOLD SEPARATOR_1);
 	rainbow_txt_nonl(TITLE);
-	printf("%s\n\t%s\n", SEPARATOR_2, 
+	printf("%s\n\t%s\n", SEPARATOR_2, \
 	color_if_nbr("./philo argv[1] argv[2] argv[3] argv[4]"));
-	printf("\n\t\t\t   %s\n\n\t%s\n", RESET "or", 
+	printf("\n\t\t\t   %s\n\n\t%s\n", RESET "or", \
 	color_if_nbr("./philo argv[1] argv[2] argv[3] argv[4] argv[5]"));
-	printf("\n\n%s%s%s%s", color_if_nbr(ARGV1), color_if_nbr(ARGV2),
+	printf("\n\n%s%s%s%s", color_if_nbr(ARGV1), color_if_nbr(ARGV2), \
 	color_if_nbr(ARGV3), color_if_nbr(ARGV4));
 	printf("%s%s\n%s\n", OPTIONAL, color_if_nbr(ARGV5), FOOTER);
 }

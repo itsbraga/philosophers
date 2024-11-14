@@ -6,7 +6,7 @@
 /*   By: annabrag <annabrag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 18:20:45 by annabrag          #+#    #+#             */
-/*   Updated: 2024/11/15 00:10:44 by annabrag         ###   ########.fr       */
+/*   Updated: 2024/11/14 23:55:51 by annabrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static void	__eat(t_philo *nietzsche)
 
 static void	__sleep(t_philo *socrate)
 {
-	status_msg(socrate, "is sleeping");
+	status_msg(socrate, "is sleeping 🧸");
 	ft_usleep(socrate->data->time_to_sleep, socrate->data);
 }
 
@@ -85,7 +85,7 @@ void	*routine(void *philo)
 		if (check_if_someone_died(platon) == true)
 			break ;
 		__sleep(platon);
-		status_msg(platon, "is thinking");
+		status_msg(platon, "is thinking...");
 	}
 	return (NULL);
 }

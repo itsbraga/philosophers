@@ -41,7 +41,7 @@ THREADS_DIR	=	threads/
 THREADS_F	=	threads.c routine.c supervisor.c
 
 TOOLS_DIR	=	tools/
-TOOLS_F		=	lib.c time.c msg.c
+TOOLS_F		=	lib.c time.c msg.c custom.c
 
 #******************************************************************************#
 #	COMBINE FILES AND DIRECTORIES
