@@ -6,7 +6,7 @@
 /*   By: annabrag <annabrag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 22:40:01 by art3mis           #+#    #+#             */
-/*   Updated: 2024/11/13 20:55:48 by annabrag         ###   ########.fr       */
+/*   Updated: 2024/11/14 23:43:44 by annabrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,39 @@ long	ft_atol(const char *str)
 		str++;
 	}
 	return (nbr * sign);
+}
+
+char	*ft_strcat(char *dest, char *src)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (dest[i] != '\0')
+		i++;
+	while (src[j] != '\0')
+	{
+		dest[i] = src[j];
+		j++;
+		i++;
+	}
+	dest[i] = '\0';
+	return (dest);
+}
+
+char	*ft_strncat(char *dest, char *src, size_t n)
+{
+	size_t	i;
+	size_t	dlen;
+
+	i = 0;
+	dlen = ft_strlen(dest);
+	while (src[i] != '\0' && i < n)
+	{
+		dest[dlen + i] = src[i];
+		i++;
+	}
+	dest[dlen + i] = '\0';
+	return (dest);
 }

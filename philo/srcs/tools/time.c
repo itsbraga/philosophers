@@ -6,7 +6,7 @@
 /*   By: annabrag <annabrag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 19:41:18 by art3mis           #+#    #+#             */
-/*   Updated: 2024/11/14 20:34:22 by annabrag         ###   ########.fr       */
+/*   Updated: 2024/11/14 23:44:42 by annabrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ size_t	get_current_timestamp(void)
 
 void	ft_usleep(size_t msec, t_data *data)
 {
-	// diviser ca tout les X pour que si il un philo meurt 
-	// il arrete le programme
 	size_t	start;
 	bool	is_dead;
 

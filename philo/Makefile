@@ -26,9 +26,9 @@ CFLAGS		=	-Wall -Wextra -Werror -pthread -I
 DEPFLAGS	=	-MMD -MP
 MAKEFLAGS	+=	--no-print-directory
 
+VALG_FLAGS	=	-g -g3
+HELGRIND	=	valgrind --tool=helgrind
 FSANITIZE	=	-fsanitize=thread
-VALG_TOOL	=	--tool=helgrind
-DEBUG		=	-g -g3
 
 #******************************************************************************#
 #	SOURCES
@@ -41,7 +41,7 @@ THREADS_DIR	=	threads/
 THREADS_F	=	threads.c routine.c supervisor.c
 
 TOOLS_DIR	=	tools/
-TOOLS_F		=	lib.c time.c msg.c
+TOOLS_F		=	lib.c time.c msg.c custom.c
 
 #******************************************************************************#
 #	COMBINE FILES AND DIRECTORIES
@@ -66,7 +66,7 @@ all: $(NAME)
 $(OBJS_DIR)%.o: $(SRCS_DIR)%.c
 				@mkdir -p $(dir $@)
 				@printf "$(BOLD)$(ITAL)$(PURPLE)Compiled: $(RESET)$(ITAL)$<                                  \n"
-				@$(CC) $(DEBUG) $(DEPFLAGS) $(CFLAGS) $(INC) -c $< -o $@
+				@$(CC) $(DEPFLAGS) $(CFLAGS) $(INC) -c $< -o $@
 -include $(DEPS_F)
 
 $(NAME): $(OBJS_F)
@@ -75,7 +75,7 @@ $(NAME): $(OBJS_F)
 			@printf "\t $(PASTEL_PURPLE)Mandatory$(RESET): "
 			@printf "$(RESET)$(BLINK)Compilation done!\n\n$(RESET)"
 			@printf "$(BOLD)====================================================\n\n$(RESET)"
-			@$(CC) $(DEBUG) $(CFLAGS) $(INC) $(OBJS_F) -o $(NAME)
+			@$(CC) $(CFLAGS) $(INC) $(OBJS_F) -o $(NAME)
 
 clean:
 		@rm -rf $(OBJS_DIR)
@@ -88,10 +88,8 @@ fclean: clean
 re:		fclean all
 			@printf "\n$(BOLD)$(YELLOW)make re: $(RESET)All files have been rebuilt! ✨\n\n"
 
-san: $(FSANITIZE)
-
 norm:
 		@clear
 		@norminette $(SRCS_DIR) $(INC) | grep -v Norme -B1 || true
 
-.PHONY: all clean fclean re san norm
+.PHONY: all clean fclean re norm

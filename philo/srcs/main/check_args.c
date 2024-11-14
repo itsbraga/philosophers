@@ -6,7 +6,7 @@
 /*   By: annabrag <annabrag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 18:19:21 by annabrag          #+#    #+#             */
-/*   Updated: 2024/11/13 21:13:51 by annabrag         ###   ########.fr       */
+/*   Updated: 2024/11/14 23:56:56 by annabrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,6 @@ static void	__exit_with_context(char *reason)
 	exit(FAILURE);
 }
 
-/*
-	 Checks if the input contains only numbers, they should all be bigger
-	 than 0 except the number of meals each philo needs to eat.
-*/
 bool	args_check_is_successfull(int argc, char **argv)
 {
 	int	i;
@@ -57,7 +53,7 @@ bool	args_check_is_successfull(int argc, char **argv)
 	if (argv == NULL || argv[i] == NULL)
 		return (false);
 	if (argc < 5 || argc > 6)
-		printf("not enough arguments\n");
+		get_help_menu();
 	while (i < argc)
 	{
 		if (__is_only_number(argv[i]) == false)
@@ -74,5 +70,6 @@ bool	args_check_is_successfull(int argc, char **argv)
 		__exit_with_context(ERR_TTS);
 	if (argv[5] != NULL && (ft_atol(argv[5]) <= 0))
 		__exit_with_context(ERR_MUST_EAT);
+	printf("\n%s\n\n\n", BOLD BLINK GREEN ARG_CHECK RESET);
 	return (true);
 }

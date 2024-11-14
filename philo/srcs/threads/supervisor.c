@@ -6,7 +6,7 @@
 /*   By: annabrag <annabrag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 17:37:09 by art3mis           #+#    #+#             */
-/*   Updated: 2024/11/14 20:48:10 by annabrag         ###   ########.fr       */
+/*   Updated: 2024/11/14 23:50:43 by annabrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ static bool	__check_if_all_ate(t_data *data)
 	pthread_mutex_lock(&data->full_lock);
 	if (data->full == data->nbr_of_philos)
 	{
-		// printf("jaitrop bouffer %d nb de philo %d\n", data->full, data->nbr_of_philos);
 		pthread_mutex_unlock(&data->meal_lock);
 		pthread_mutex_unlock(&data->full_lock);
 		return (true);
@@ -51,6 +50,13 @@ static bool	__check_if_all_ate(t_data *data)
 	pthread_mutex_unlock(&data->meal_lock);
 	pthread_mutex_unlock(&data->full_lock);
 	return (false);
+}
+
+static void	__finish_simulation(t_data *data)
+{
+	pthread_mutex_lock(&data->death_lock);
+	data->died = true;
+	pthread_mutex_unlock(&data->death_lock);
 }
 
 void	supervisor(t_data *data)
@@ -68,17 +74,11 @@ void	supervisor(t_data *data)
 			if (curr_time - data->philo[i].last_meal_time >= data->time_to_die)
 			{
 				pthread_mutex_unlock(&data->meal_lock);
-				__someone_died(data, i);
-				return ;
+				return (__someone_died(data, i));
 			}
 			pthread_mutex_unlock(&data->meal_lock);
 			if (__check_if_all_ate(data) == true)
-			{
-				pthread_mutex_lock(&data->death_lock);
-				data->died = true;
-				pthread_mutex_unlock(&data->death_lock);
-				return ;
-			}
+				return (__finish_simulation(data));
 			i++;
 		}
 	}
